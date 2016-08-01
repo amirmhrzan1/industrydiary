@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/relativeLayoutindustryContact"
+    android:focusableInTouchMode="true">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/dark_blue">
+
+        <TextView
+            android:id="@+id/tvFragmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Industry Contact"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlback"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="@color/title_bar"
+        android:layout_below="@+id/relativeLayoutTitle">
+
+    <ImageButton
+        android:id="@+id/backImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_icon"
+        android:layout_centerVertical="true"
+        android:paddingLeft="18dp"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        android:id="@+id/txtBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:paddingLeft="18dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/hrline"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_below="@id/rlback"></View>
+
+    <ScrollView
+        android:id="@+id/layoutIndustryContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/hrline">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/listContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:dividerHeight="1dip">
+    </LinearLayout>
+
+    <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:layout_below="@+id/listContact"
+                android:paddingRight="20dp"
+                android:layout_marginBottom="10dp"
+                >
+
+                <Button
+                    android:id="@+id/btn_addNewContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:text="ADD NEW CONTACT"
+                    android:textSize="13dp"
+                    android:textColor="@color/white"
+                    android:paddingLeft="40dp"
+                    android:gravity="start|center"
+                    android:drawablePadding="30dp"
+                    android:background="@drawable/round_new_contact_button"
+                    android:drawableLeft="@drawable/white_plus"
+                    android:layout_marginBottom="5dp"
+                    />
+                <Button
+                    android:id="@+id/btn_selectExisting"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:text="SELECT EXISTING CONTACT"
+                    android:textSize="13dp"
+                    android:paddingLeft="35dp"
+                    android:drawablePadding="25dp"
+                    android:gravity="start|center"
+                    android:background="@drawable/round_button_existing_contact"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/btn_addNewContact"
+                    android:drawableLeft="@drawable/white_contact_icon"
+                    />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SAVE + NEXT STEP"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:id="@+id/btnSaveAndNext"
+            android:background="@drawable/rounded_button"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/btn_selectExisting"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutAddNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@id/hrline"
+        android:orientation="vertical"
+        >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+            <Button
+                android:id="@+id/btn_addNew"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:drawableLeft="@drawable/ic_add_black_24dp"
+                android:text="Add New Contact"
+                android:textColor="@color/button"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+
+                android:capitalize="words"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TITLE/ROLE"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:capitalize="words"
+                android:background="@drawable/rounded_edittext"/>
+
+
+            <TextView
+                android:id="@+id/tvOrganization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ORGANISATION"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtOrganization"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:capitalize="words"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvStreetAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADDRESS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtStreetAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:capitalize="words"
+                android:background="@drawable/rounded_edittext"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvSuburb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SUBURB"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/color_edittext" />
+
+                    <EditText
+                        android:id="@+id/edtSuburb"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/textBoxHeight"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:singleLine="true"
+                        android:capitalize="words"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_edittext"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    >
+                    <TextView
+                        android:id="@+id/tvPostCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="POST CODE"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/color_edittext" />
+
+                    <EditText
+                        android:id="@+id/edtPostalCode"
+                        android:layout_width="match_parent"
+                        android:paddingLeft="15dp"
+                        android:layout_height="@dimen/textBoxHeight"
+                        android:layout_weight="0.5"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:capitalize="words"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_edittext"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PHONE"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:inputType="number"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:capitalize="words"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EMAIL"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:capitalize="words"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvQualification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QUALIFICATION/EXPERIENCE"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext"
+                />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <EditText
+                android:id="@+id/edtQualification"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:singleLine="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="40dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"
+               />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                <ImageView
+                    android:id="@+id/questionQualification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:src="@drawable/question_icon"
+                    android:layout_alignParentRight="true"
+                    />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COMMENTS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:scrollbars="vertical"
+                    android:lines="3"
+                    android:gravity="top|left"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/questionComment"
+                        android:layout_width="wrap_content"
+                        android:padding="20dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvOpportunities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OPPORTUNITIES/FURTHER ENGAGEMENT"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtOpportunities"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:scrollbars="vertical"
+                    android:lines="3"
+                    android:gravity="top|left"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   >
+
+                    <ImageView
+                        android:id="@+id/questionOpportunities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tvActionRequired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTION REQUIRED"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtActionRequired"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:scrollbars="vertical"
+                    android:lines="3"
+                    android:gravity="top|left"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   >
+
+                    <ImageView
+                        android:id="@+id/questionAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tvActivityRecommended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTIVITY RECOMMENDED FOR TEACHERS/STUDENTS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtActivityRecommendation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:scrollbars="vertical"
+                    android:lines="3"
+                    android:gravity="top|left"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   >
+
+                    <ImageView
+                        android:id="@+id/questionActivityRecommended"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:text="SUBMIT"
+                android:textSize="15dp"
+                android:id="@+id/btnSaveContact"
+                android:background="@color/button"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+
+        </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

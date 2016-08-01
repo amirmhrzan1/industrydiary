@@ -1,0 +1,17 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <!--Button sizes-->
+    <dimen name="btn_height_default">60dp</dimen>
+    <dimen name="btn_height_medium">40dp</dimen>
+    <dimen name="btn_height_small">10dp</dimen>
+    <dimen name="SCpaddingTop">98dp</dimen>
+    <dimen name="SCpadding2">16dp</dimen>
+    <dimen name="SCpadding3">64dp</dimen>
+    <dimen name="paddingBelow">40dp</dimen>
+    <dimen name="SCpdading4">40dp</dimen>
+    <dimen name="SCpdading5">34dp</dimen>
+    <dimen name="radius">55dp</dimen>
+</resources>

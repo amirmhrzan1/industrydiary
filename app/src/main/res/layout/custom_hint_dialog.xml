@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#88000000"
+    android:id="@+id/rlHintDialog"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/crossImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imgQuestionMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/question_icon"
+        android:layout_marginBottom="15dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem"
+        android:id="@+id/text_dialog"
+        android:inputType="textCapSentences|textMultiLine"
+        android:layout_below="@+id/imgQuestionMark"
+        android:textSize="13sp"
+
+        android:layout_margin="10dp"
+        android:textColor="#ff000000"
+        />
+    </RelativeLayout>
+
+        </RelativeLayout>

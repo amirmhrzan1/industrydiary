@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/relativeLayoutIndustryActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/dark_blue">
+
+        <TextView
+            android:id="@+id/tvFragmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/industryActivity"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutTitle"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+            <TextView
+                android:id="@+id/tvDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="DETAILS/DESCRIPTION/SUMMARY"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtDetails"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="FEEDBACK FROM INDUSTRY"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvSkills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="SKILLS/KNOWLEDGE"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtSkills"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+
+            <TextView
+                android:id="@+id/tvFuture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="FUTURE ENGAGEMENT"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtFuture"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvTraining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="TRAINING AND ASSESSMENT"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtTraining"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="GENERAL"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtGeneral"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvBestPractice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="BEST PRACTICE IDENTIFIED"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtBestPractice"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="RATING"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtRating"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:singleLine="true"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvAreas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="AREAS/IDEAS FOR IMPROVEMENT"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtAreas"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:singleLine="true"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:text="SAVE + NEXT STEP"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:id="@+id/btnSave"
+                android:background="@drawable/rounded_button"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/edtFeedback"
+                android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

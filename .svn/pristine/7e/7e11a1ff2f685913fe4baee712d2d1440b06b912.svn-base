@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.weareforge.qms" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".utils.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.weareforge.qms.activities.SplashScreen"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"  />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.LoginActivity"
+            android:label="Login"/>
+
+        <activity android:name=".activities.HomeActivity"
+            android:label="Home"/>
+
+        <activity android:name=".activities.ExistingIndustryActivity" />
+
+        <activity android:name=".activities.MyIndustryContacts" />
+    </application>
+
+</manifest>

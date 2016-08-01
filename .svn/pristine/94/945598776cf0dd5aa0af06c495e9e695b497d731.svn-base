@@ -1,0 +1,292 @@
+package com.weareforge.qms.activities;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.weareforge.qms.Objects.EngagementEvidenceData;
+import com.weareforge.qms.Objects.IndustryContacts;
+import com.weareforge.qms.Objects.IndustryContactsStatic;
+import com.weareforge.qms.R;
+import com.weareforge.qms.adapters.ExistingIndustryArrayAdapter;
+import com.weareforge.qms.asyncTasks.VolleyRequest;
+import com.weareforge.qms.helpers.CommonDef;
+import com.weareforge.qms.helpers.UrlHelper;
+import com.weareforge.qms.interfaces.AsyncInterface;
+import com.weareforge.qms.utils.ConnectionMngr;
+import com.weareforge.qms.utils.FontHelper;
+import com.weareforge.qms.utils.Opener;
+import com.weareforge.qms.utils.SharedPreference;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * Created by Admin on 12/23/2015.
+ */
+public class ExistingIndustryActivity extends BaseActivity implements AsyncInterface {
+
+    private ListView industry_list;
+    private ExistingIndustryArrayAdapter adapter;
+    private ImageButton btn_backButton;
+    private ImageButton btnAddNew;
+
+    private TextView txt_back;
+    FontHelper fontHelper;
+    private Opener opener;
+    private UrlHelper urlHelper;
+
+    private SharedPreference sharedPreference;
+    private VolleyRequest vsr;
+    private ConnectionMngr connectionMngr;
+    private HashMap<String, String> params;
+
+    private String token;
+    private String userid;
+
+    private ArrayList<EngagementEvidenceData> engagementEvidenceList;
+    private EngagementEvidenceData engagementEvidenceData;
+
+    private Context context;
+    private int index;
+
+    //button click alpha animation
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.1F);
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_existing_industry;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide(); //remove title bar
+        //  setContentView();
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        this.btn_backButton = (ImageButton) findViewById(R.id.back_img);
+        this.txt_back = (TextView) findViewById(R.id.txt_back);
+        this.industry_list = (ListView) findViewById(R.id.list_industryConacts);
+        this.btnAddNew = (ImageButton) findViewById(R.id.btnAddNew);
+
+        //Visible Buttons
+        this.btn_backButton.setVisibility(View.VISIBLE);
+        this.txt_back.setVisibility(View.VISIBLE);
+        this.btnAddNew.setVisibility(View.VISIBLE);
+
+        //Fonts
+        fontHelper = new FontHelper(this);
+        txt_back.setTypeface(fontHelper.getDefaultFont());
+        opener = new Opener(this);
+        connectionMngr = new ConnectionMngr(this);
+
+        sharedPreference = new SharedPreference(this);
+        token = sharedPreference.getStringValues("token");
+        userid = sharedPreference.getStringValues("userid");
+
+        this.context = this;
+        loadExistingIndustry();
+
+        //Proceed to complete the remainging step
+        this.industry_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EngagementEvidenceData data = (EngagementEvidenceData) industry_list.getAdapter().getItem(position);
+                sharedPreference.setKeyValues("Engagement_Evidence_Id", String.valueOf(data.getEngagementEvidenceId()));
+                sharedPreference.setKeyValues("Industry_Engagement_Id",(String.valueOf(data.getIndustyEngagementId())));
+                sharedPreference.setKeyValues("flag",1);
+                opener.NewIndustry();
+            }
+        });
+
+       this.industry_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+           @Override
+           public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+               AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+               builder1.setMessage("Do you want to Delete?");
+               builder1.setCancelable(true);
+               index = position;
+               builder1.setPositiveButton(
+                       "Yes",
+                       new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                               if(connectionMngr.hasConnection()) {
+                                   EngagementEvidenceData contacts = (EngagementEvidenceData) industry_list.getItemAtPosition(position);
+
+                                   params = new HashMap<String, String>();
+                                   params.put("userid" , userid);
+                                   params.put("token",token);
+                                   params.put("engagement_evidence_id",String.valueOf(contacts.getEngagementEvidenceId()));
+
+                                   vsr = new VolleyRequest((ExistingIndustryActivity) context, Request.Method.POST, params, urlHelper.DELETE_ENGAGEMENT_EVIDENCE, false, CommonDef.REQUEST_DELETE_ENGAGEMENT_EVIDENCE);
+                                   vsr.asyncInterface = (ExistingIndustryActivity) context;
+                                   vsr.request();
+                               }
+
+                           }
+                       });
+
+               builder1.setNegativeButton(
+                       "No",
+                       new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                               dialog.cancel();
+                           }
+                       });
+               AlertDialog alert11 = builder1.create();
+               alert11.show();
+               return true;
+           }
+       });
+
+        this.btn_backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(buttonClick);
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        this.txt_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        this.btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opener.NewIndustry();
+            }
+        });
+    }
+
+    private void loadExistingIndustry() {
+        if (connectionMngr.hasConnection()) {
+            params = new HashMap<String, String>();
+            params.put("token", token);
+            params.put("userid", userid);
+
+            vsr = new VolleyRequest(this, Request.Method.POST, params, urlHelper.LIST_ENGAGEMENT_EVIDENCE, false, CommonDef.REQUEST_ENGAGEMENT_EVIDENCE_LIST);
+            vsr.asyncInterface = this;
+            vsr.request();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void processFinish(String result, int requestCode) {
+        switch (requestCode) {
+            case CommonDef.REQUEST_ENGAGEMENT_EVIDENCE_LIST:
+                loadExistingEvidence(result);
+                adapter = new ExistingIndustryArrayAdapter(this, engagementEvidenceList);
+                this.industry_list.setAdapter(adapter);
+                break;
+
+            case CommonDef.REQUEST_DELETE_ENGAGEMENT_EVIDENCE:
+                JSONObject jObjResult;
+                try {
+                    jObjResult = new JSONObject(result);
+                    String responseText = jObjResult.getString("responseText");
+                    String response = jObjResult.getString("response");
+                    if(response.equalsIgnoreCase("0"))
+                    {
+                        engagementEvidenceList.remove(index);
+                        this.adapter.notifyDataSetChanged();
+                        Toast.makeText(this,responseText,Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(this,responseText,Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+        }
+    }
+
+    private void loadExistingEvidence(String result) {
+        JSONObject jObjResult;
+        engagementEvidenceList = new ArrayList<EngagementEvidenceData>();
+        try {
+            jObjResult = new JSONObject(result);
+            String responseText = jObjResult.getString("responseText");
+            int countOfEvidence = jObjResult.getInt("countOfEvidence");
+            if (countOfEvidence > 0) {
+                JSONArray jArrayResult = jObjResult.getJSONArray("evidenceData");
+                for (int i = 0; i < jArrayResult.length(); i++) {
+                    JSONObject jArrayObject = jArrayResult.getJSONObject(i);
+                    int engagement_Evidence_Id = Integer.parseInt(jArrayObject.getString("Engagement_Evidence_Id"));
+                    String title = jArrayObject.getString("Title");
+                    String status = jArrayObject.getString("status");
+                    int User_id = Integer.parseInt(jArrayObject.getString("User_id"));
+                    String Current_Step = jArrayObject.getString("Current_Step");
+
+                    engagementEvidenceData = new EngagementEvidenceData();
+                    engagementEvidenceData.setEngagementEvidenceId(engagement_Evidence_Id);
+                    engagementEvidenceData.setTitle(title);
+                    engagementEvidenceData.setStatus(status);
+                    engagementEvidenceData.setUserid(User_id);
+                    engagementEvidenceData.setCurrentStep(Current_Step);
+
+                    if(jArrayObject.getString("industryEngagementData")!="false") {
+                        JSONObject jsonData = jArrayObject.getJSONObject("industryEngagementData");
+                        int Industry_Engagement_Id = Integer.parseInt(jsonData.getString("Industry_Engagement_Id"));
+                        String Reference = jsonData.getString("Reference");
+                        String Datetime = jsonData.getString("Datetime");
+                        String Hours = jsonData.getString("Hours");
+                        String Venue = jsonData.getString("Venue");
+                        int Findout_Id = Integer.parseInt(jsonData.getString("Findout_Id"));
+
+                        engagementEvidenceData.setIndustryEngagementId(Industry_Engagement_Id);
+                        engagementEvidenceData.setReference(Reference);
+                        engagementEvidenceData.setDatetime(Datetime);
+                        engagementEvidenceData.setHours(Hours);
+                        engagementEvidenceData.setVenue(Venue);
+                        engagementEvidenceData.setFindOutId(Findout_Id);
+                    }
+                    engagementEvidenceList.add(engagementEvidenceData);
+
+                }
+            }
+         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+}

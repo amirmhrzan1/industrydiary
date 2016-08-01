@@ -1,0 +1,329 @@
+package com.weareforge.qms.activities;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.weareforge.qms.Objects.OfflineData;
+import com.weareforge.qms.Objects.updatedData;
+import com.weareforge.qms.R;
+import com.weareforge.qms.asyncTasks.VolleyRequest;
+import com.weareforge.qms.db.EngagementEvidenceOfflineContent;
+import com.weareforge.qms.helpers.CommonDef;
+import com.weareforge.qms.helpers.UrlHelper;
+import com.weareforge.qms.utils.AppController;
+import com.weareforge.qms.utils.ConnectionMngr;
+import com.weareforge.qms.utils.SharedPreference;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by prajit on 4/5/16.
+ */
+public class UpdateDB extends AsyncTask<Integer,Void,Void> {
+
+    private Context context;
+    private SharedPreference sharedPreference;  //shared preference
+    private EngagementEvidenceOfflineContent offlinedbHandler;
+    private ConnectionMngr connectionMngr;
+    private UrlHelper urlHelper;
+
+    private String token;
+    private String userid;
+
+    private HashMap<String, String> param;
+    private VolleyRequest vsr;
+    private VolleyRequest vsrActivity;
+    private VolleyRequest vsrPurpose;
+    private VolleyRequest vsrFindOut;
+    private VolleyRequest vsrASAQ;
+
+    Activity activity;
+    private  JSONObject jObjResult;
+    private OfflineData datas;
+
+    int activityTimeStamp;
+    int findOutTimeStamp;
+    int purposeActivityTimeStamp;
+    int asaqStandardTimeStamp;
+
+    public UpdateDB(Context context) {
+      //  this.context =(SettingActivity) context;
+     //   activity = (AppCompatActivity)context;
+        this.context = context;
+        connectionMngr = new ConnectionMngr(context);
+        sharedPreference = new SharedPreference(context);
+        token = sharedPreference.getStringValues("token");
+        userid = sharedPreference.getStringValues("userid");
+        offlinedbHandler = new EngagementEvidenceOfflineContent(context);
+
+    }
+
+    @Override
+    protected Void doInBackground(Integer... params) {
+
+        activityTimeStamp = params[0];
+        findOutTimeStamp = params[1];
+        purposeActivityTimeStamp = params[2];
+        asaqStandardTimeStamp = params[3];
+
+        if (connectionMngr.hasConnection()) {
+            param = new HashMap<String, String>();
+
+            param.put("token", token);
+            param.put("userid", userid);
+
+
+            doPostRequest(Request.Method.POST, param, urlHelper.GET_UPDATED_DATA, CommonDef.REQUEST_GET_UPDATED);
+        }
+        return null;
+    }
+
+    private void listASAQ(String result) {
+        try {
+            jObjResult = new JSONObject(result);
+            String response = jObjResult.getString("response");
+            String responseText = jObjResult.getString("responseText");
+            int response_int = Integer.parseInt(response);
+            offlinedbHandler.Open();
+            if (response_int == 0) {
+                offlinedbHandler.deleteAsaqStandard();
+                JSONArray listArrayActivity = jObjResult.getJSONArray("asqaStandards");
+                for (int i = 0; i < listArrayActivity.length(); i++) {
+                    datas = new OfflineData();
+                    final JSONObject listActivity = listArrayActivity.getJSONObject(i);
+                    datas.setId(Integer.parseInt(listActivity.getString("ASQA_Standard_Id")));
+                    datas.setTitle(listActivity.getString("Title"));
+                    datas.setIsActive(listActivity.getString("Is_Active"));
+                    datas.setCategory(listActivity.getString("category"));
+                    try{
+                        datas.setIsDeleted(listActivity.getString("Is_Deleted"));
+                    }catch (Exception exx)
+                    {
+
+                    }
+                    offlinedbHandler.insertASAQStandard(datas);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listFindOut(String result) {
+        try {
+            jObjResult = new JSONObject(result);
+            String response = jObjResult.getString("response");
+            String responseText = jObjResult.getString("responseText");
+            int response_int = Integer.parseInt(response);
+            offlinedbHandler.Open();
+            if (response_int == 0) {
+                offlinedbHandler.deleteFindOut();
+                JSONArray listArrayActivity = jObjResult.getJSONArray("findoutData");
+                for (int i = 0; i < listArrayActivity.length(); i++) {
+                    datas = new OfflineData();
+                    final JSONObject listActivity = listArrayActivity.getJSONObject(i);
+                    datas.setId(Integer.parseInt(listActivity.getString("Findout_Id")));
+                    datas.setTitle(listActivity.getString("Title"));
+                    datas.setIsActive(listActivity.getString("Is_Active"));
+                    try{
+                        datas.setIsDeleted(listActivity.getString("Is_Deleted"));
+                    }catch (Exception exx)
+                    {
+
+                    }
+                    offlinedbHandler.insertFindOutData(datas);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listPurpose(String result) {
+        try {
+            jObjResult = new JSONObject(result);
+            String response = jObjResult.getString("response");
+            String responseText = jObjResult.getString("responseText");
+            int response_int = Integer.parseInt(response);
+            offlinedbHandler.Open();
+            if (response_int == 0) {
+                offlinedbHandler.deletePurposeActivity();
+                JSONArray listArrayActivity = jObjResult.getJSONArray("activityPurposeData");
+                for (int i = 0; i < listArrayActivity.length(); i++) {
+                    datas = new OfflineData();
+                    final JSONObject listActivity = listArrayActivity.getJSONObject(i);
+                    datas.setId(Integer.parseInt(listActivity.getString("Purpose_Activity_Id")));
+                    datas.setTitle(listActivity.getString("Purpose_Activity_Title"));
+                    datas.setIsActive(listActivity.getString("Is_Active"));
+                    datas.setIsDeleted(listActivity.getString("Is_Deleted"));
+                    datas.setHelpString(listActivity.getString("help_text"));
+
+                    offlinedbHandler.insertPurposeActivityData(datas);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listActivity(String result) {
+        try {
+            jObjResult = new JSONObject(result);
+            String response = jObjResult.getString("response");
+            String responseText = jObjResult.getString("responseText");
+            int response_int = Integer.parseInt(response);
+            offlinedbHandler.Open();
+            if (response_int == 0) {
+                offlinedbHandler.deleteActivity();
+                JSONArray listArrayActivity = jObjResult.getJSONArray("activityData");
+                for (int i = 0; i < listArrayActivity.length(); i++) {
+                    datas = new OfflineData();
+                    final JSONObject listActivity = listArrayActivity.getJSONObject(i);
+                    datas.setId(Integer.parseInt(listActivity.getString("Activity_Id")));
+                    datas.setTitle(listActivity.getString("Title"));
+                    datas.setIsActive(listActivity.getString("Is_Active"));
+                    datas.setIsDeleted(listActivity.getString("Is_Deleted"));
+                    datas.setHelpString(listActivity.getString("help_text"));
+
+                    offlinedbHandler.insertActivityData(datas);
+                }
+
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listUpdate(String result) {
+        updatedData updatedData;
+        try {
+            jObjResult = new JSONObject(result);
+            String response = jObjResult.getString("response");
+            String responseText = jObjResult.getString("responseText");
+            int response_int = Integer.parseInt(response);
+         //   offlineFindOutDatas = new ArrayList<>();
+             offlinedbHandler.Open();
+            if (response_int == 0) {
+                offlinedbHandler.deleteUpdatedTimeStamp();
+                updatedData = new updatedData();
+
+                updatedData.setActivity(jObjResult.getInt("activity"));
+                updatedData.setFindOut(jObjResult.getInt("find_out"));
+                updatedData.setPurposeOfActivity(jObjResult.getInt("purpose_of_activity"));
+                updatedData.setAsaqStandard(jObjResult.getInt("asqa_standard"));
+                offlinedbHandler.insertDataUpdate(updatedData);
+
+                if(jObjResult.getInt("activity") != activityTimeStamp)
+                {
+                    //pull activity
+                    param = new HashMap<String, String>();
+
+                    param.put("token", token);
+                    param.put("userid", userid);
+
+                    doPostRequest(Request.Method.POST, param, urlHelper.LIST_ACTIVITY, CommonDef.REQUEST_LIST_ACTIVITY);
+                }
+                if(jObjResult.getInt("find_out") !=findOutTimeStamp)
+                {
+                    //pull findOut
+                    param = new HashMap<String, String>();
+
+                    param.put("token", token);
+                    param.put("userid", userid);
+
+                    doPostRequest(Request.Method.POST, param, urlHelper.LIST_FIND_OUT, CommonDef.REQUEST_LIST_FINDOUT);
+
+                }
+                if(jObjResult.getInt("purpose_of_activity") != purposeActivityTimeStamp)
+                {
+                    //purposeActivity
+                    param = new HashMap<String, String>();
+
+                    param.put("token", token);
+                    param.put("userid", userid);
+
+                    doPostRequest(Request.Method.POST, param, urlHelper.LIST_PURPOSE, CommonDef.REQUEST_LIST_PURPOSE);
+                }
+                if(jObjResult.getInt("asqa_standard") != asaqStandardTimeStamp)
+                {
+                    //pull asaqStandard
+                    param = new HashMap<String, String>();
+
+                    param.put("token", token);
+                    param.put("userid", userid);
+
+                    doPostRequest(Request.Method.POST, param, urlHelper.LIST_ASAQ, CommonDef.REQUEST_LIST_ASAQ);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    void doPostRequest(int method,
+                       final HashMap<String, String> params, String url,
+                       final int requestCode) {
+        StringRequest stringRequest = new StringRequest(method, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+
+                if(requestCode == CommonDef.REQUEST_GET_UPDATED)
+                {
+                    listUpdate(s);
+                }
+
+               else if(requestCode == CommonDef.REQUEST_LIST_PURPOSE)
+               {
+                   listPurpose(s);
+               }
+                else if(requestCode == CommonDef.REQUEST_LIST_ACCRED)
+               {
+                   listFindOut(s);
+               }
+                else if(requestCode == CommonDef.REQUEST_LIST_ACTIVITY)
+               {
+                   listActivity(s);
+               }
+                else if(requestCode == CommonDef.REQUEST_LIST_ASAQ)
+               {
+                   listASAQ(s);
+               }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+              // VolleyErrorHandler volleyErrorHandler = new VolleyErrorHandler(volleyError,this);
+              //  volleyErrorHandler.errorHandler();
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                System.out.println("Params: " + params);
+                return params;
+            }
+        };
+        RetryPolicy policy = new DefaultRetryPolicy(CommonDef.SOCKET_TIME_OUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        AppController.getInstance().addToRequestQueue(stringRequest);
+    }
+}

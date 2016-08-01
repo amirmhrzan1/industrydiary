@@ -1,0 +1,333 @@
+package com.weareforge.qms.activities;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.weareforge.qms.Objects.IndustryContacts;
+import com.weareforge.qms.Objects.IndustryContactsStatic;
+import com.weareforge.qms.R;
+import com.weareforge.qms.adapters.MyComparator;
+import com.weareforge.qms.adapters.MyIndustryContactArrayAdapter;
+import com.weareforge.qms.asyncTasks.VolleyRequest;
+import com.weareforge.qms.db.IndustryContactsDb;
+import com.weareforge.qms.helpers.CommonDef;
+import com.weareforge.qms.helpers.UrlHelper;
+import com.weareforge.qms.interfaces.AsyncInterface;
+import com.weareforge.qms.utils.ConnectionMngr;
+import com.weareforge.qms.utils.FontHelper;
+import com.weareforge.qms.utils.Opener;
+import com.weareforge.qms.utils.SharedPreference;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
+/**
+ * Created by Prajeet on 12/23/2015.
+ */
+public class MyIndustryContactsActivity extends BaseActivity implements View.OnClickListener,AsyncInterface {
+
+    private ListView industry_list;
+    private MyIndustryContactArrayAdapter adapter;
+    private ImageButton btn_back;
+
+    private TextView txtSort;
+    private TextView txtBack;
+    private Opener opener;
+
+    private VolleyRequest vsr;
+    private HashMap<String, String> params;
+
+    private ImageButton imgBtnAdd;
+
+    private SharedPreference sharedPreference;
+    private ConnectionMngr connectionMngr;
+    private IndustryContactsDb dbHelper;
+    // private FetchDataFromServer fetchData = new FetchDataFromServer();
+    private UrlHelper urlHelper;
+    private FontHelper fontHelper;
+
+    private int selectedContactId;
+    private int index;
+
+    private String token;
+    private String userid;
+    private String industry_contact_id;
+
+    private IndustryContactsStatic industryContactsStatic = new IndustryContactsStatic();
+    private IndustryContacts industryContacts;
+
+    ArrayList<IndustryContacts> industryContactStatic = new ArrayList<IndustryContacts>();
+
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.1F);
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_industy_contacts;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide();  //Removing action bar
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        this.btn_back = (ImageButton) findViewById(R.id.back_img);
+        this.txtSort = (TextView) findViewById(R.id.txt_sort);
+        this.txtBack = (TextView) findViewById(R.id.txt_back);
+        this.industry_list = (ListView) findViewById(R.id.list_industryContacts);
+        this.imgBtnAdd = (ImageButton) findViewById(R.id.btnAddNew);
+
+        //Visible Buttons
+        this.btn_back.setVisibility(View.VISIBLE);
+        this.txtBack.setVisibility(View.VISIBLE);
+       // this.txtSort.setVisibility(View.VISIBLE);
+        this.imgBtnAdd.setVisibility(View.VISIBLE);
+
+        //Fonts Helper
+        fontHelper = new FontHelper(this);
+        this.txtSort.setTypeface(fontHelper.getDefaultFont());
+        this.txtBack.setTypeface(fontHelper.getDefaultFont("bold"));
+
+        //Initializing objects
+        sharedPreference = new SharedPreference(this);
+        opener = new Opener(this);
+        connectionMngr = new ConnectionMngr(this);
+        dbHelper = new IndustryContactsDb(this);
+
+        token = sharedPreference.getStringValues("token");
+        userid = sharedPreference.getStringValues("userid");
+
+        if (connectionMngr.hasConnection()) {
+            LoadContacts();
+            this.industry_list.deferNotifyDataSetChanged();
+        } else {
+//            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_LONG).show();
+        }
+        industryContactStatic = IndustryContactsStatic.industryContactsArrayList;
+        Collections.sort(industryContactStatic, new MyComparator());
+
+        if (this.industry_list.getAdapter() != null) {
+            this.adapter.notifyDataSetChanged();
+        }
+
+        Collections.sort(industryContactStatic, new MyComparator());
+        adapter = new MyIndustryContactArrayAdapter(this, industryContactStatic);
+        this.industry_list.setAdapter(adapter);
+
+        //click Listners
+        this.btn_back.setOnClickListener(this);
+        this.txtBack.setOnClickListener(this);
+        this.imgBtnAdd.setOnClickListener(this);
+        this.txtSort.setOnClickListener(this);
+
+        //Floating context menu on listview item clicklistner
+        registerForContextMenu(industry_list);
+    }
+
+    private void LoadContacts() {
+        params = new HashMap<>();
+        params.put("token", token);
+        params.put("userid", userid);
+
+        vsr = new VolleyRequest(this, Request.Method.POST, params, urlHelper.INDUSTRY_CONTACT, false, CommonDef.REQUEST_INDUSTRY_CONTACTS);
+        vsr.asyncInterface = this;
+        vsr.request();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.actions, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        index = info.position;
+        IndustryContacts contacts = (IndustryContacts) this.industry_list.getItemAtPosition(index);
+        selectedContactId = contacts.getIndustry_Contact_Id();
+        switch (item.getItemId()) {
+
+            case R.id.cnt_mnu_edit:
+                sharedPreference.setKeyValues("industry_contact_id", contacts.getIndustry_Contact_Id());
+                opener.EditIndustryContact();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case R.id.cnt_mnu_delete:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setTitle("Industry Diary");
+                builder1.setMessage("Are you sure you want to delete?");
+                builder1.setCancelable(true);
+
+                contacts = (IndustryContacts) industry_list.getItemAtPosition(index);
+                String industryContactId = String.valueOf(contacts.getIndustry_Contact_Id());
+                params = new HashMap<String, String>();
+                params.put("industry_contact_id", industryContactId);
+                params.put("token", token);
+                params.put("userid", userid);
+
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (connectionMngr.hasConnection()) {
+                                    index = info.position;
+
+
+                                    vsr = new VolleyRequest( MyIndustryContactsActivity.this, Request.Method.POST, params, UrlHelper.INDUSTRY_CONTACT_DELETE, false, CommonDef.REQUEST_INDUSTRY_CONTACT_DELETE);
+                                    vsr.asyncInterface = MyIndustryContactsActivity.this;
+                                    vsr.request();
+                                }
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
+                break;
+        }
+        return true;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == this.btn_back.getId()) {
+            v.startAnimation(buttonClick);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+        } else if (v.getId() == this.txtBack.getId()) {
+            v.startAnimation(buttonClick);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        } else if (v.getId() == this.imgBtnAdd.getId()) {
+            v.startAnimation(buttonClick);
+            opener.AddIndustryContact();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        } else if (v.getId() == this.txtSort.getId()) {
+            v.startAnimation(buttonClick);
+            Collections.sort(industryContactStatic, new MyComparator());
+            this.adapter.notifyDataSetChanged();
+        }
+
+    }
+
+    @Override
+    public void processFinish(String result, int requestCode) {
+        switch (requestCode) {
+            case CommonDef.REQUEST_INDUSTRY_CONTACT_DELETE:
+                JSONObject jsonResult;
+                try {
+                    jsonResult = new JSONObject(result);
+                    int resoponse = jsonResult.getInt("response");
+                    String msg = jsonResult.getString("responseText");
+                    if (resoponse == 0) {
+//                        dbHelper.DeleteContact(selectedContactId);
+                        IndustryContactsStatic.industryContactsArrayList.remove(index);
+                        this.adapter.notifyDataSetChanged();
+                        Toast.makeText(this, "Contact deleted successfully", Toast.LENGTH_LONG).show();
+
+                    } else {
+//                        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case CommonDef.REQUEST_INDUSTRY_CONTACTS:
+                //  fetchData.loadIndustryContact(this,token, userid,result);
+                LoadIndustryContacts(result);
+                break;
+        }
+    }
+
+    private void LoadIndustryContacts(String result) {
+        JSONObject jObjResult;
+        try {
+            jObjResult = new JSONObject(result);
+            String responseText = jObjResult.getString("responseText");
+            int countOfContacts = jObjResult.getInt("countOfContacts");
+            industryContactsStatic.industryContactsArrayList.clear();
+            if (countOfContacts > 0) {
+                JSONArray jArrayResult = jObjResult.getJSONArray("contactList");
+                for (int i = 0; i < jArrayResult.length(); i++) {
+                    JSONObject jArrayObject = jArrayResult.getJSONObject(i);
+                    String Industry_Contact_Id = jArrayObject.getString("Industry_Contact_Id");
+                    String Title = jArrayObject.getString("Title");
+                    String Name = jArrayObject.getString("Name");
+                    String Organization = jArrayObject.getString("Organization");
+                    String Email = jArrayObject.getString("Email");
+                    String Phone = jArrayObject.getString("Phone");
+
+                    industryContacts = new IndustryContacts();
+                    industryContacts.setIndustry_Contact_Id(Integer.parseInt(Industry_Contact_Id));
+                    industryContacts.setName(Name);
+                    industryContacts.setTitle(Title);
+                    industryContacts.setOrganization(Organization);
+                    industryContacts.setEmail(Email);
+                    industryContacts.setPhone(Phone);
+                    //Add IndustryContact Object in Array
+                    industryContactsStatic.industryContactsArrayList.add(industryContacts);
+
+
+                }
+                //Populate ListView
+                industryContactStatic = IndustryContactsStatic.industryContactsArrayList;
+                Collections.sort(industryContactStatic, new MyComparator());
+                if (this.industry_list.getAdapter() != null) {
+                    this.adapter.notifyDataSetChanged();
+                }
+                adapter = new MyIndustryContactArrayAdapter(this, industryContactStatic);
+                this.industry_list.setAdapter(adapter);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //  overridePendingTransition(R.anim.left_out, R.anim.right_in);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+}

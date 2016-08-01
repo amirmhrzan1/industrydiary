@@ -1,0 +1,63 @@
+package com.weareforge.qms.Objects;
+
+/**
+ * Created by Admin on 1/5/2016.
+ */
+public class IndustryContacts {
+
+    private int Industry_Contact_Id;
+    private String Name;
+    private String Title;
+    private String Organization;
+    private String Phone;
+    private String Email;
+
+    public void setIndustry_Contact_Id(int industry_Contact_Id) {
+        this.Industry_Contact_Id = industry_Contact_Id;
+    }
+
+    public int getIndustry_Contact_Id() {
+        return this.Industry_Contact_Id;
+    }
+
+    public void setName(String name) {
+        this.Name = name;
+    }
+
+    public String getName() {
+        return this.Name;
+    }
+
+    public void setTitle(String title) {
+        this.Title = title;
+    }
+
+    public String getTitle() {
+        return this.Title;
+    }
+
+    public void setOrganization(String organization) {
+        this.Organization = organization;
+    }
+
+    public String getOrganization() {
+        return this.Organization;
+    }
+
+    public void setPhone(String phone) {
+        this.Phone = phone;
+    }
+
+    public String getPhone() {
+        return this.Phone;
+    }
+
+    public void setEmail(String email) {
+        this.Email = email;
+    }
+
+    public String getEmail() {
+        return this.Email;
+    }
+
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:divider="#808080"
+        android:layout_below="@+id/frameLayout"
+        android:dividerHeight="1dp"
+        android:transcriptMode="disabled" />
+
+    <FrameLayout
+        android:layout_alignParentTop="true"
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:background="@drawable/background_shadow"
+            android:layout_marginTop="5.33dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:background="@color/title_bar">
+
+        </RelativeLayout>
+        <ImageButton
+            android:id="@+id/setting_logo"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="-9dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/circle_icon"
+
+            />
+
+        <ImageButton
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_icon"
+            android:padding="18dp"
+            android:paddingTop="-5dp"
+            android:background="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/txt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:padding="17dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/white"
+
+            />
+    </FrameLayout>
+
+</RelativeLayout>

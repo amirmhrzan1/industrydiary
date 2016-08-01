@@ -1,0 +1,145 @@
+package com.weareforge.qms.helpers;
+
+import android.app.Activity;
+
+import com.android.volley.Request;
+import com.weareforge.qms.Objects.IndustryContactDetails;
+import com.weareforge.qms.Objects.IndustryContactDetailsStatic;
+import com.weareforge.qms.Objects.IndustryContacts;
+import com.weareforge.qms.Objects.IndustryContactsStatic;
+import com.weareforge.qms.asyncTasks.VolleyRequest;
+import com.weareforge.qms.interfaces.AsyncInterface;
+import com.weareforge.qms.utils.Opener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+/**
+ * Created by Prajeet on 1/4/2016.
+ */
+public class FetchDataFromServer {
+
+    private HashMap<String, String> params;
+    private UrlHelper urlHelper;
+    private VolleyRequest vsr;
+
+    private Opener opener;
+    private IndustryContactDetails industryContactDetails;
+
+    private IndustryContacts industryContacts;
+    IndustryContactDetailsStatic industryContactDetailsStatic = new IndustryContactDetailsStatic();
+
+    IndustryContactsStatic industryContactsStatic = new IndustryContactsStatic();
+
+    public void LoadDataFromServer(Activity activity,String token, String userid) {
+        params = new HashMap<>();
+        params.put("token", token);
+        params.put("userid", userid);
+
+        vsr = new VolleyRequest(activity, Request.Method.POST, params, urlHelper.INDUSTRY_CONTACT, false, CommonDef.REQUEST_INDUSTRY_CONTACTS);
+        vsr.asyncInterface = (AsyncInterface) activity;
+        vsr.request();
+    }
+
+    public void loadIndustryContactList(Activity activity ,String result) {
+        JSONObject jObjResult;
+        try {
+            jObjResult = new JSONObject(result);
+            JSONArray contactData = jObjResult.getJSONArray("contactData");
+            for(int i=0;i<contactData.length();i++) {
+                try {
+                    JSONObject industryContact = contactData.getJSONObject(i);
+                    String industryContactId = industryContact.getString("Industry_Contact_Id");
+                    String title = industryContact.getString("Title");
+                    String organization = industryContact.getString("Organization");
+                    String streetAddress= industryContact.getString("Street_Address");
+                    String suburb = industryContact.getString("Suburb");
+                    String postalCode= industryContact.getString("Postal_Code");
+                    String phone = industryContact.getString("Phone");
+                    String email = industryContact.getString("Email");
+                    String qualification = industryContact.getString("Qualification");
+                    String comment = industryContact.getString("Comment");
+                    String opportunities = industryContact.getString("Opportunities");
+                    String actionRequired = industryContact.getString("Action_Required");
+                    String activityRecommendation = industryContact.getString("Activity_Recommendation");
+
+                    int industrycntId = Integer.parseInt(industryContactId);
+
+                    industryContactDetails = new IndustryContactDetails();
+                    industryContactDetails.setIndustry_Contact_Id(industrycntId);
+                    industryContactDetails.setTitle(title);
+                    industryContactDetails.setOrganization(organization);
+                    industryContactDetails.setStreet_Address(streetAddress);
+                    industryContactDetails.setSuburb(suburb);
+                    industryContactDetails.setPostal_Code(postalCode);
+                    industryContactDetails.setPhone(phone);
+                    industryContactDetails.setEmail(email);
+                    industryContactDetails.setQualification(qualification);
+                    industryContactDetails.setComment(comment);
+                    industryContactDetails.setOpportunities(opportunities);
+                    industryContactDetails.setAction_Required(actionRequired);
+                    industryContactDetails.setActivity_Recommendation(activityRecommendation);
+
+//                    dbHelper.Open();
+//                    dbHelper.InsertIndustryContact(industryContactDetails);
+                    industryContactDetailsStatic.industryContactDetailsArrayList.add(industryContactDetails);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            opener = new Opener(activity);
+            opener.MyIndustryContacts();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadIndustryContact(Activity activity, String token, String userid , String result) {
+        JSONObject jObjResult;
+        try {
+            jObjResult = new JSONObject(result);
+            String responseText = jObjResult.getString("responseText");
+            int countOfContacts = jObjResult.getInt("countOfContacts");
+          //  industryContactDetailsStatic.industryContactDetailsArrayList.clear();
+            industryContactsStatic.industryContactsArrayList.clear();
+            if(countOfContacts > 0)
+            {
+                JSONArray jArrayResult = jObjResult.getJSONArray("contactList");
+                for(int i = 0; i <jArrayResult.length() ; i++) {
+                    JSONObject jArrayObject = jArrayResult.getJSONObject(i);
+                    String Industry_Contact_Id = jArrayObject.getString("Industry_Contact_Id");
+                    String Name = jArrayObject.getString("Title");
+
+                    industryContacts = new IndustryContacts();
+                    industryContacts.setIndustry_Contact_Id(Integer.parseInt(Industry_Contact_Id));
+                    industryContacts.setName(Name);
+
+                    industryContactsStatic.industryContactsArrayList.add(industryContacts);
+
+
+                  //  LoadIndustryContactList(activity , token, userid, Industry_Contact_Id);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void LoadIndustryContactList(Activity activity, String token, String userid, String industry_contact_id) {
+        params = new HashMap();
+
+        params.put("token", token);
+        params.put("userid", userid);
+        params.put("industry_contact_id", industry_contact_id);
+
+        vsr = new VolleyRequest(activity, Request.Method.POST,params,urlHelper.INDUSTRY_CONTACT_LIST,false,CommonDef.REQUEST_INDUSTRY_CONTACT_LIST);
+        vsr.asyncInterface = (AsyncInterface) activity;
+        vsr.request();
+    }
+}

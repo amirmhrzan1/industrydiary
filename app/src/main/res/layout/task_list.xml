@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        >
+
+    <ImageView
+        android:id="@+id/imgActivity1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/questionMarkPadding"
+        android:src="@drawable/question_icon"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity 1"
+        android:textColor="@color/color_edittext"
+        android:paddingLeft="30dp"
+        android:button="@drawable/checkbox_selector"
+        />
+
+ </RelativeLayout>

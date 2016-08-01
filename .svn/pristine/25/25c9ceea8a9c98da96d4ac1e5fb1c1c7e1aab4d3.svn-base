@@ -1,0 +1,104 @@
+package com.weareforge.qms.activities;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
+import android.widget.EditText;
+
+import com.android.volley.Request;
+import com.google.gson.JsonObject;
+import com.weareforge.qms.R;
+import com.weareforge.qms.asyncTasks.VolleyRequest;
+import com.weareforge.qms.helpers.CommonDef;
+import com.weareforge.qms.helpers.UrlHelper;
+import com.weareforge.qms.interfaces.AsyncInterface;
+import com.weareforge.qms.utils.SharedPreference;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+/**
+ * Created by Admin on 1/6/2016.
+ */
+public class MyDetailsActivity extends AppCompatActivity implements AsyncInterface {
+
+    private EditText edtName;
+    private EditText edtTeachingNo;
+    private EditText edtSchool;
+    private EditText edtRTO;
+    private EditText edtAccreditations;
+    private EditText edtEmail;
+
+    private SharedPreference sharedPreference;
+
+    private String userid,token;
+    private HashMap<String, String> params;
+    private VolleyRequest vsr;
+    private UrlHelper urlHelper;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide();  //Removing action bar
+        setContentView(R.layout.activity_my_details);
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        this.edtName = (EditText) findViewById(R.id.edt_Name);
+        this.edtTeachingNo = (EditText) findViewById(R.id.edt_TeachinNo);
+        this.edtSchool = (EditText) findViewById(R.id.edt_school);
+        this.edtRTO = (EditText) findViewById(R.id.edt_RTO);
+        this.edtAccreditations = (EditText) findViewById(R.id.edt_accreditaitons);
+        this.edtEmail = (EditText) findViewById(R.id.edt_email);
+
+        sharedPreference = new SharedPreference(this);
+        userid= sharedPreference.getStringValues("userid");
+        token = sharedPreference.getStringValues("token");
+
+        getMyDetails();
+    }
+
+    private void getMyDetails() {
+
+        params = new HashMap<String, String>();
+        params.put("userid",userid);
+        params.put("token", token);
+
+        vsr = new VolleyRequest(this, Request.Method.POST,params, urlHelper.MY_DETAILS,false,CommonDef.REQUEST_MY_DETAILS);
+        vsr.asyncInterface = this;
+        vsr.request();
+    }
+
+    @Override
+    public void processFinish(String result, int requestCode) {
+        switch(requestCode)
+        {
+            case CommonDef.REQUEST_MY_DETAILS:
+                JSONObject jsonResult;
+                try {
+                    jsonResult = new JSONObject(result);
+                    int response = jsonResult.getInt("response");
+                    if(response==0)
+                    {
+                        JSONArray jArrayResult= jsonResult.getJSONArray("teacher");
+//                        for(int i = 0; i <jArrayResult.length() ; i++) {
+                        int i=0;
+                        JSONObject jArrayObject = jArrayResult.getJSONObject(i);
+                        this.edtName.setText(jArrayObject.getString("teacherFirstName")+" "+jArrayObject.getString("teacherLastName"));
+                        this.edtSchool.setText(jArrayObject.getString("schoolName"));
+                        this.edtRTO.setText(jArrayObject.getString("rto_code"));
+                        this.edtAccreditations.setText("accreditationName");
+//                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+}

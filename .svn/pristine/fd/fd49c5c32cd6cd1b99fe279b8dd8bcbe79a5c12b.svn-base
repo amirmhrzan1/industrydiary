@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="progressBarColor">#ffffff</color>
+    <color name="backgroundProgressBarColor">@android:color/transparent</color>
+    <color name="button">#195293</color>
+    <color name="title_bar">#4bb5da</color>
+    <color name="menu_bar">#46c4d6</color>
+    <color name="black_shadow">#40000000</color>
+    <color name="button_background">#f3f4f4</color>
+    <color name="button_textColor">#183156</color>
+    <color name="ref_title">#416fb6</color>
+    <color name="left_menu_bar">#4bb5da</color>
+    <color name="right_menu_bar">#46c4d6</color>
+    <color name="black">#000000</color>
+    <color name="listview_alternate">#f6f5f4</color>
+    <color name="color_submitted">#46c4d6</color>
+    <color name="loginbg">#006699</color>
+    <color name="grey">#9AA3A6</color>
+</resources>

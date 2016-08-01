@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="20dp"
+    android:background="@android:color/transparent">
+
+    <ImageButton
+        android:id="@+id/ibtn_cross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_clear_white_24dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ibtn_cross">
+
+        <ListView
+            android:id="@+id/listItemContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#e3e3e3"
+            android:dividerHeight="1dp"
+            android:layout_marginBottom="50dp"></ListView>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@color/dark_blue"
+            android:text="DONE"
+            android:layout_marginTop="-50dp"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

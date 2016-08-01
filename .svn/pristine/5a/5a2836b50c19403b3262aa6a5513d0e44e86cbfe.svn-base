@@ -1,0 +1,107 @@
+package com.weareforge.qms.activities;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.weareforge.qms.R;
+import com.weareforge.qms.adapters.ExistingIndustryArrayAdapter;
+import com.weareforge.qms.utils.FontHelper;
+import com.weareforge.qms.utils.Opener;
+
+/**
+ * Created by Admin on 12/23/2015.
+ */
+public class ExistingIndustryActivity extends BaseActivity {
+
+    private ListView industry_list;
+    private ExistingIndustryArrayAdapter adapter;
+    private ImageButton btn_backButton;
+    private ImageButton btnAddNew;
+
+    private TextView txt_back;
+    FontHelper fontHelper;
+    private Opener opener;
+
+
+
+    //button click alpha animation
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.1F);
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_existing_industry;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide(); //remove title bar
+      //  setContentView();
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        this.btn_backButton = (ImageButton) findViewById(R.id.back_img);
+        this.txt_back = (TextView) findViewById(R.id.txt_back);
+        this.industry_list = (ListView) findViewById(R.id.list_industryConacts);
+        this.btnAddNew = (ImageButton) findViewById(R.id.btnAddNew);
+
+        //Visible Buttons
+        this.btn_backButton.setVisibility(View.VISIBLE);
+        this.txt_back.setVisibility(View.VISIBLE);
+        this.btnAddNew.setVisibility(View.VISIBLE);
+
+        //Fonts
+        fontHelper = new FontHelper(this);
+        txt_back.setTypeface(fontHelper.getDefaultFont());
+        opener = new Opener(this);
+
+
+        String[] data = {"aaaa", "dddd"," sss", "dddd" ,"ssss","ssss","ssss","aaa","aaa"};
+        adapter= new ExistingIndustryArrayAdapter(this, data);
+        this.industry_list.setAdapter(adapter);
+
+        this.btn_backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(buttonClick);
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        this.txt_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        this.btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opener.NewIndustry();
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+}

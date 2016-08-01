@@ -1,0 +1,18 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="progress_bar_width">1dp</dimen>
+    <dimen name="background_progressbar_width">2dp</dimen>
+    <dimen name="textBoxHeight">40dp</dimen>
+    <dimen name="buttonHeight">58dp</dimen>
+    <dimen name="textArea">65dp</dimen>
+    <dimen name="questionMarkPadding">5dp</dimen>
+
+    <dimen name="SCpaddingTop">49dp</dimen>
+    <dimen name="SCpadding2">8dp</dimen>
+    <dimen name="SCpadding3">32dp</dimen>
+    <dimen name="paddingBelow">20dp</dimen>
+    <dimen name="SCpadding4">20dp</dimen>
+    <dimen name="SCpdading5">17dp</dimen>
+</resources>

@@ -1,0 +1,164 @@
+package com.weareforge.qms.activities;
+
+import android.app.ActionBar;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.weareforge.qms.R;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Admin on 1/7/2016.
+ *
+ */
+
+public class NewIndustyActivity extends FragmentActivity  {
+
+    /**
+     * The pager widget, which handles animation and allows swiping horizontally to access previous
+     * and next wizard steps.
+     */
+    private ViewPager mPager = null;
+    /**
+     * The pager adapter, which provides the pages to the view pager widget.
+     */
+    private PagerAdapter mPagerAdapter;
+    private LinearLayout PgRelativeLayout;
+
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.2F);
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_industry);
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = (ViewPager) findViewById(R.id.pager);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        mPager.setAdapter(new MyAdapter(fragmentManager));
+
+        //    mPager.addView();
+
+        final ArrayList<Button> numButtons = new ArrayList<Button>();
+        this.PgRelativeLayout = (LinearLayout) findViewById(R.id.PlrelativeLayout);
+
+        for(int i=1;i<=6;i++){
+            Button btn_Pg = new Button(this);
+            String number = String.valueOf(i);
+            btn_Pg.setText(number);
+            btn_Pg.setPadding(7, 7, 7, 7);
+            btn_Pg.setTextSize(15);
+            RelativeLayout.LayoutParams rel_button1 = new RelativeLayout.LayoutParams(50, 50);
+            rel_button1.setMargins(20, 40, 0, 0);
+            btn_Pg.setLayoutParams(rel_button1);
+
+            if(i==1){
+                btn_Pg.setBackgroundResource(R.drawable.roundblack_button);
+                btn_Pg.setTextColor(Color.WHITE);
+            }else{
+                btn_Pg.setBackgroundResource(R.drawable.round_button);
+                btn_Pg.setTextColor(Color.BLACK);
+            }
+            final int finalI = i;
+            btn_Pg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   // onPageSelected(finalI);
+                    mPager.setCurrentItem(finalI);
+                }
+            });
+            this.PgRelativeLayout.addView(btn_Pg);
+            numButtons.add(btn_Pg);
+        }
+
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+                for (int i = 0; i < 6; i++) {
+                    Button imageView = numButtons.get(i);
+                    if (i == position) {
+                        imageView.startAnimation(buttonClick);
+                        imageView.setBackgroundResource(R.drawable.roundblack_button);
+                        imageView.setTextColor(Color.WHITE);
+                    } else {
+                        imageView.startAnimation(buttonClick);
+                        imageView.setBackgroundResource(R.drawable.round_button);
+                        imageView.setTextColor(Color.BLACK);
+                    }
+                    final int finalI = i;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onPageSelected(finalI);
+                            mPager.setCurrentItem(finalI);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                }
+        });
+        }
+            /**
+             * A simple pager adapter that represents 6 Fragment_One objects, in
+             * sequence.
+             */
+     class MyAdapter extends FragmentPagerAdapter {
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position)
+            {
+                case 0:
+                    fragment = new Fragment_One();
+                    break;
+                case 1:
+                    fragment = new Fragment_Two();
+                    break;
+                case 2:
+                    fragment = new Fragment_Three();
+                    break;
+                case 3:
+                    fragment = new Fragment_Four();
+                    break;
+                case 4:
+                    fragment = new Fragment_Five();
+                    break;
+                case 5:
+                fragment = new Fragment_Six();
+                break;
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 6;
+        }
+    }
+}
+

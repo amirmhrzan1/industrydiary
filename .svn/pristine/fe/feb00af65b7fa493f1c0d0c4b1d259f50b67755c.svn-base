@@ -1,0 +1,17 @@
+package com.weareforge.qms.utils;
+
+import android.app.Activity;
+import android.content.Intent;
+
+/**
+ * Created by Ronish on 11/17/2015.
+ */
+public class Opener {
+    static Activity activity;
+    static Intent intent;
+    SharedPreference pref;
+
+    public static void SignIn(Activity activity) {
+    }
+
+}

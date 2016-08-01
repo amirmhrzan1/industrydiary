@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/dark_blue">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/standardCompetencies"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Submit to QMS"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:background="@color/dark_blue"
+                android:id="@+id/btnSave"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+               android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/relativeLayoutIndstryEngagement"
+    android:focusableInTouchMode="true">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/dark_blue">
+
+        <TextView
+            android:id="@+id/txtFragmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Industry Engagement"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/relativeLayoutTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tvReferenceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YOUR REFERENCE"
+                android:textColor="@color/color_edittext" />
+
+        <EditText
+            android:id="@+id/edtReferenceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/textBoxHeight"
+            android:layout_marginTop="2dp"
+            android:paddingLeft="15dp"
+            android:singleLine="true"
+            android:capitalize="sentences"
+            android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvSelectAccreditation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SELECT ACCREDITATION"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+        <Spinner
+            android:id="@+id/spinnerAccred"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:paddingRight="30dp"
+            android:background="@drawable/selected_box"
+            />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/color_edittext" />
+
+        <EditText
+            android:id="@+id/edtDate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/textBoxHeight"
+            android:paddingLeft="15dp"
+            android:paddingRight="2dp"
+            android:focusable="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_edittext"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIME"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/color_edittext" />
+         <EditText
+             android:id="@+id/edtTime"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/textBoxHeight"
+            android:paddingLeft="15dp"
+             android:focusable="true"
+            android:layout_weight="0.5"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/rounded_edittext"/>
+
+                    </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvNoOfHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NUMBER OF HOURS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtNoOfHours"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="2dp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:capitalize="sentences"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="VENUE/ORGANIZATION"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtVenue"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:capitalize="sentences"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvFindOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOW DID YOU FIND OUT ABOUT THIS ACTIVITY?"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <Spinner
+                android:id="@+id/spinnerFindOut"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="30dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/selected_box"/>
+
+            <EditText
+                android:id="@+id/edtFindOut"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:capitalize="sentences"
+                android:lines="3"
+                android:gravity="left|top"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_edittext"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="ACTIVITY \n\nWhat did you do?"
+                android:textSize="15sp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/color_edittext"
+                />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edtOtherActivity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="15dp"
+                android:lines="3"
+                android:gravity="left|top"
+                android:capitalize="sentences"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_edittext"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvPurpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="PURPOSE OF ACTIVITY \n\nWhat are you engaging with Industry?"
+                android:textSize="15sp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/color_edittext"
+                />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutPurpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edtOtherPurpose"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textArea"
+                android:paddingLeft="15dp"
+                android:lines="3"
+                android:gravity="left|top"
+                android:capitalize="sentences"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_edittext"
+                android:visibility="gone"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="SAVE + NEXT STEP"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:id="@+id/btnSaveAndNext"
+                android:background="@drawable/rounded_button"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

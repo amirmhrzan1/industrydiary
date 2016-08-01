@@ -1,0 +1,14 @@
+package com.weareforge.qms.helpers;
+
+/**
+ * Created by Ronish on 11/18/2015.
+ */
+public class UrlHelper {
+
+    public static String SERVER = "https://qmsveis.info/api/";
+    public static String LOGIN = SERVER + "authentication";
+    public static String AIRLINES = SERVER + "airlines_listing";
+    public static String TNC = SERVER + "terms_conditions";
+    public static String FORGOTPWD = SERVER + "forgot_password";
+
+}

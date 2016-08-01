@@ -1,0 +1,85 @@
+package com.weareforge.qms.activities;
+
+import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
+
+import com.weareforge.qms.R;
+import com.weareforge.qms.db.QMSDatabaseHelper;
+import com.weareforge.qms.utils.Opener;
+import com.weareforge.qms.utils.SharedPreference;
+
+
+public class SplashScreen extends AppCompatActivity {
+
+    private Opener opener;
+
+    private QMSDatabaseHelper qmsDatabaseHelper;
+    private SharedPreference sharedPreference;
+
+    private int flag;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide();  //Removing action bar
+        setContentView(R.layout.activity_splash_screen);
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //Fixed Portrait View
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        sharedPreference = new SharedPreference(this);
+        flag = sharedPreference.getIntValues("Flag");
+
+        opener = new Opener(this);
+        Thread timerThread = new Thread(){
+            public void run(){
+                try{
+                    sleep(3000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }finally{
+                 //   progressBar.clearAnimation();
+                    if(flag == 0) {
+                        opener.Login();
+                    }
+                    else opener.Home();
+                }
+            }
+        };
+        timerThread.start();
+      //  Opener.SignIn(SplashScreen.this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_splash_screen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}

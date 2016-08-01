@@ -1,0 +1,64 @@
+package com.weareforge.qms.activities;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.weareforge.qms.R;
+import com.weareforge.qms.utils.FontHelper;
+
+/**
+ * Created by Admin on 12/23/2015.
+ */
+public class ExistingIndustryActivity extends AppCompatActivity {
+
+    private ListView industry_list;
+    private ExistingIndustryArrayAdapter adapter;
+    private ImageButton btn_backButton;
+
+    private TextView txt_back;
+    FontHelper fontHelper;
+
+
+
+    //button click alpha animation
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.1F);
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide(); //remove title bar
+        setContentView(R.layout.activity_existing_industry);
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        this.btn_backButton = (ImageButton) findViewById(R.id.back_img);
+        this.txt_back = (TextView) findViewById(R.id.txt_back);
+        this.industry_list = (ListView) findViewById(R.id.list_industryConacts);
+
+        //Fonts
+        fontHelper = new FontHelper(this);
+        txt_back.setTypeface(fontHelper.getDefaultFont());
+
+
+        String[] data = {"aaaa", "dddd"," sss", "dddd" ,"ssss","ssss","ssss","aaa","aaa"};
+        adapter= new ExistingIndustryArrayAdapter(this, data);
+        this.industry_list.setAdapter(adapter);
+
+        this.btn_backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(buttonClick);
+                finish();
+            }
+        });
+    }
+}

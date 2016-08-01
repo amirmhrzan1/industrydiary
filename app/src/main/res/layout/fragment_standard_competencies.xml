@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/relativeLayoutStandardCompetencies">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/dark_blue">
+
+        <TextView
+            android:id="@+id/tvFragmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/standardCompetencies"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutTitle"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+
+
+            <TextView
+                android:id="@+id/tvASQA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="ASQA STANDARDS ADDRESSED:"
+                android:textSize="15sp"
+                android:textColor="@color/color_edittext"
+                />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutStandard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvCompetencies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="COMPETENCIES"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/color_edittext"
+                />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutCompetencies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/llayoutMoreInfo"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/tvMoreInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/moreinfo"
+                android:layout_marginBottom="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/color_edittext"
+                />
+
+                <TextView
+                    android:id="@+id/tvClickhere"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/click_here"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/dark_blue"
+                    />
+
+                </LinearLayout>
+            <TextView
+                android:id="@+id/tvMeasure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="MEASURE AGAINST TAS"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:textColor="@color/color_edittext"
+                />
+
+            <Button
+                android:id="@+id/btnView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:text="View Your TAS"
+                android:textSize="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/tvHaveYou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/have_you"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtHaveYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:paddingLeft="10dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="3"
+                android:gravity="top|left"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:text="SAVE + COMPLETE"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button"
+                android:id="@+id/btnSave"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

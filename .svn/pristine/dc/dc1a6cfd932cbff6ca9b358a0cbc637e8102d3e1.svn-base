@@ -1,0 +1,19 @@
+package com.weareforge.qms.helpers;
+
+/**
+ * Created by Ronish on 11/18/2015.
+ */
+public class UrlHelper {
+
+
+    public static String SERVER = "https://qmsveis.info/api/";
+    public static String LOGIN = SERVER + "authentication/";
+    public static String INDUSTRY_CONTACT = SERVER + "industry_contact/list/";
+    public static String INDUSTRY_CONTACT_EDIT = SERVER + "industry_contact/edit/";
+    public static String INDUSTRY_CONTACT_LIST = SERVER + "industry_contact/view/";
+    public static final String INDUSTRY_CONTACT_ADD = SERVER + "industry_contact/add/";
+    public static final String INDUSTRY_CONTACT_DELETE = SERVER + "industry_contact/delete/";
+    public static final String MY_DETAILS = SERVER + "teacher_details/";
+    public static String FORGOTPWD = SERVER + "forgot_password";
+
+}

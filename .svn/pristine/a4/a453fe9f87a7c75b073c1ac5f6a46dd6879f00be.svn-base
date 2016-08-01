@@ -1,0 +1,46 @@
+package com.weareforge.qms.utils;
+
+import android.app.Activity;
+import android.graphics.Typeface;
+
+/**
+ * Created by user on 8/25/2015.
+ */
+public class FontHelper {
+
+    Activity activity;
+    private Typeface font_light;
+    private Typeface font_regular;
+    private Typeface font_bold;
+    private Typeface font_medium;
+
+    public FontHelper(Activity activity){
+        this.activity = activity;
+        this.font_light = Typeface.createFromAsset(this.activity.getAssets(), "fonts/Ubuntu-Light.ttf");
+        this.font_regular = Typeface.createFromAsset(this.activity.getAssets(), "fonts/Ubuntu-Regular.ttf");
+        this.font_medium = Typeface.createFromAsset(this.activity.getAssets(), "fonts/Ubuntu-Medium.ttf");
+        this.font_bold = Typeface.createFromAsset(this.activity.getAssets(), "fonts/Ubuntu-Bold.ttf");
+//        this.font_bold_cn = Typeface.createFromAsset(this.activity.getAssets(), "fonts/font-Bd-Cn.ttf");
+//        this.font_cn = Typeface.createFromAsset(this.activity.getAssets(), "fonts/font-Cn.ttf");
+    }
+
+    public Typeface getDefaultFont(){
+        return this.font_regular;
+    }
+
+    public Typeface getDefaultFont(String type){
+        if(type.equalsIgnoreCase("light"))
+            return this.font_light;
+        else if(type.equalsIgnoreCase("regular"))
+            return this.font_regular;
+        else if(type.equalsIgnoreCase("medium"))
+            return this.font_medium;
+        else if(type.equalsIgnoreCase("bold"))
+            return this.font_bold;
+        else
+            return this.font_regular;
+
+
+    }
+
+}

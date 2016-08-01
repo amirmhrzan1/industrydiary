@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom_bar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rlNewIndustry"
+                android:layout_width="match_parent"
+                android:layout_height="167dp"
+                android:paddingBottom="1dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_step_first"
+                    android:scaleType="centerCrop" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_centerVertical="true">
+
+                    <ImageButton
+                        android:id="@+id/btn_new_industry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_plus_icon" />
+
+                    <TextView
+                        android:id="@+id/txt_new_industry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:layout_toRightOf="@+id/btn_new_industry"
+                        android:layout_centerVertical="true"
+                        android:text="@string/new_industry_text"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlExistingIndustry"
+                android:layout_width="match_parent"
+                android:layout_height="174dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_step_first"
+                    android:scaleType="centerCrop" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="35dp"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/btn_existing_industry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/search"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_existing_industry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:layout_toRightOf="@+id/btn_existing_industry"
+                        android:layout_centerVertical="true"
+                        android:text="@string/existing_industry_text"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlExistingIndustry"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/btn_eventsInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="97dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/events_info_resources"
+                    android:paddingLeft="25dp"
+                    android:drawablePadding="15dp"
+                    android:gravity="left|center_vertical|center_horizontal"
+                    android:textSize="10sp"
+                    android:textColor="@color/button_textColor"
+                    android:text="@string/txt_events_info" />
+
+                <Button
+                    android:id="@+id/btn_industryContacts"
+                    android:layout_width="0dp"
+                    android:layout_height="97dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/button_background"
+                    android:drawableLeft="@drawable/my_industry_contacts"
+                    android:paddingLeft="25dp"
+                    android:drawablePadding="15dp"
+                    android:gravity="left|center_vertical|center_horizontal"
+                    android:textSize="10sp"
+                    android:textColor="@color/button_textColor"
+                    android:text="@string/my_industry_contacts" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linearLayout1">
+
+                <Button
+                    android:id="@+id/btn_uploadTps"
+                    android:layout_width="0dp"
+                    android:layout_height="97dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/button_background"
+                    android:drawableLeft="@drawable/upload_tas_paln_icon"
+                    android:paddingLeft="25dp"
+                    android:drawablePadding="15dp"
+                    android:gravity="left|center_vertical|center_horizontal"
+                    android:textSize="10sp"
+                    android:textColor="@color/button_textColor"
+                    android:text="@string/txt_upload_tps" />
+
+                <Button
+                    android:id="@+id/btn_myDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="97dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/my_detail_icon"
+                    android:paddingLeft="35dp"
+                    android:drawablePadding="18dp"
+                    android:gravity="left|center_vertical|center_horizontal"
+                    android:textSize="10sp"
+                    android:textColor="@color/button_textColor"
+                    android:text="@string/txt_my_details" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/menu_bar">
+
+        <ImageButton
+            android:id="@+id/btn_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:padding="18dp"
+            android:src="@drawable/setting_icon" />
+
+    </RelativeLayout>
+
+
+  <!--  <FrameLayout
+        android:layout_alignParentTop="true"
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:background="@drawable/background_shadow"
+            android:layout_marginTop="5.33dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:background="@color/title_bar">
+
+        </RelativeLayout>
+        <ImageButton
+            android:id="@+id/setting_logo"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="-9dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/circle_icon"
+
+            />
+    </FrameLayout>-->
+    
+</RelativeLayout>

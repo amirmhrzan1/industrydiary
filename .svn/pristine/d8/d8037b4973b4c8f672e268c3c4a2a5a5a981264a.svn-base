@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/relativeLayoutAddContact"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:isScrollContainer="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TITLE/ROLE"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+
+            <TextView
+                android:id="@+id/tvOrganization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ORGANIZATION"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtOrganization"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvStreetAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STREET ADDRESS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtStreetAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvSuburb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SUBURB"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/color_edittext" />
+
+                    <EditText
+                        android:id="@+id/edtSuburb"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/textBoxHeight"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_edittext"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    >
+                    <TextView
+                        android:id="@+id/tvPostCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="POST CODE"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/color_edittext" />
+
+                    <EditText
+                        android:id="@+id/edtPostalCode"
+                        android:layout_width="match_parent"
+                        android:paddingLeft="15dp"
+                        android:layout_height="@dimen/textBoxHeight"
+                        android:layout_weight="0.5"
+                        android:inputType="number"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_edittext"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PHONE"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:inputType="number"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EMAIL"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textBoxHeight"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"/>
+
+            <TextView
+                android:id="@+id/tvQualification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QUALIFICATION/EXPERIENCE(OPTIONAL)"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext"
+                />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtQualification"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="40dp"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:lines="8"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/questionQualification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COMMENTS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:lines="8"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/questionComment"
+                        android:layout_width="wrap_content"
+                        android:padding="20dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvOpportunities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OPPORTUNITIES/FURTHER ENGAGEMENT"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtOpportunities"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:lines="8"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/questionOpportunities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tvActionRequired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTION REQUIRED"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtActionRequired"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:lines="8"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/questionAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tvActivityRecommended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTIVITY RECOMMENDED FOR TEACHERS/STUDENTS"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/color_edittext" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/edtActivityRecommendation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textArea"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:lines="8"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_edittext"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/questionActivityRecommended"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:src="@drawable/question_icon"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:text="SAVE"
+                android:textSize="15dp"
+                android:id="@+id/btnAdd"
+                android:background="@color/button"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

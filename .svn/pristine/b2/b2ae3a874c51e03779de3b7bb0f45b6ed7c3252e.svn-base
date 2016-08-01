@@ -1,0 +1,298 @@
+package com.weareforge.qms.activities;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.ListPopupWindow;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.weareforge.qms.Objects.IndustryContacts;
+import com.weareforge.qms.Objects.IndustryContactsStatic;
+import com.weareforge.qms.R;
+import com.weareforge.qms.adapters.ExistingIndustryListArrayAdapter;
+import com.weareforge.qms.adapters.MyContactList;
+import com.weareforge.qms.adapters.MyIndustryContactArrayAdapter;
+import com.weareforge.qms.asyncTasks.VolleyRequest;
+import com.weareforge.qms.helpers.CommonDef;
+import com.weareforge.qms.helpers.UrlHelper;
+import com.weareforge.qms.interfaces.AsyncInterface;
+import com.weareforge.qms.utils.SharedPreference;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import eu.inmite.android.lib.validations.form.annotations.MinLength;
+import eu.inmite.android.lib.validations.form.annotations.NotEmpty;
+import eu.inmite.android.lib.validations.form.annotations.RegExp;
+
+import static eu.inmite.android.lib.validations.form.annotations.RegExp.EMAIL;
+
+/**
+ * Created by Admin on 1/7/2016.
+ */
+public class Fragment_Two extends Fragment {
+
+    private Button btnSave;
+    private Button btnSelectExisting;
+    private TextView txtTitle;
+
+    private static EditText edtTitle;
+    private static EditText edtName;
+    private static EditText edtOrganization;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 4)
+    private static EditText edtStreetAddress;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 5)
+    private static EditText edtSuburb;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 6)
+    @MinLength(value = 3, messageId =  R.string.msg_valid_postalCode, order = 7)
+    @RegExp(value = "^[0-9]+$", messageId = R.string.msg_valid_postalCode)
+    private static EditText edtPostalCode;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 8)
+    @MinLength(value = 10, messageId =  R.string.msg_valid_phoneNo, order = 9)
+    @RegExp(value = "^[0-9]+$", messageId = R.string.msg_valid_pin)
+    private static EditText edtPhone;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 10)
+    @RegExp(value = EMAIL, messageId = R.string.validation_valid_email,order = 11)
+    private static EditText edtEmail;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 12)
+    private static EditText edtQualification;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 13)
+    private static EditText edtComment;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 14)
+    private static EditText edtOppprtunities;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 15)
+    private static EditText edtActionRequired;
+
+    @NotEmpty(messageId = R.string.msg_empty, order = 16)
+    private static EditText edtActivityRecommendation;
+
+    private View listPopUpView;
+
+    private VolleyRequest vsr;
+    private HashMap<String, String> params;
+    private SharedPreference sharedPreference;
+    private UrlHelper urlHelper;
+
+    private String token;
+    private String userid;
+
+    private ListView list;
+    private static ListView industry_list;
+
+    private ListView myContactList;
+
+    private static MyIndustryContactArrayAdapter adapter;
+
+    private static MyContactList contactListAdapter;
+    private static IndustryContactsStatic industryContactsStatic = new IndustryContactsStatic();
+    private static IndustryContacts industryContacts;
+
+    static ArrayList<IndustryContacts> industryContactStatic = new ArrayList<IndustryContacts>();
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(
+                R.layout.fragment_industry_contact, container, false);
+
+
+        sharedPreference = new SharedPreference(getActivity());
+        token = sharedPreference.getStringValues("token");
+        userid = sharedPreference.getStringValues("userid");
+
+        myContactList = (ListView) rootView.findViewById(R.id.listContact);
+
+        this.industry_list = new ListView(getActivity());
+
+        list = new ListView(getActivity());
+
+        String[] data= {"aaaa","dddd"};
+
+        contactListAdapter= new MyContactList(getActivity(), data);
+        myContactList.setAdapter(contactListAdapter);
+
+/*
+
+        this.edtTitle = (EditText) rootView.findViewById(R.id.edtTitle);
+        this.edtName= (EditText) rootView.findViewById(R.id.edtName);
+        this.edtOrganization = (EditText) rootView.findViewById(R.id.edtOrganization);
+        this.edtStreetAddress = (EditText) rootView.findViewById(R.id.edtStreetAddress);
+        this.edtSuburb = (EditText) rootView.findViewById(R.id.edtSuburb);
+        this.edtPostalCode = (EditText) rootView.findViewById(R.id.edtPostalCode);
+        this.edtPhone = (EditText) rootView.findViewById(R.id.edtPhone);
+        this.edtEmail = (EditText) rootView.findViewById(R.id.edtEmail);
+        this.edtQualification = (EditText) rootView.findViewById(R.id.edtQualification);
+        this.edtComment = (EditText) rootView.findViewById(R.id.edtComment);
+        this.edtOppprtunities = (EditText) rootView.findViewById(R.id.edtOpportunities);
+        this.edtActionRequired = (EditText) rootView.findViewById(R.id.edtActionRequired);
+        this.edtActivityRecommendation = (EditText) rootView.findViewById(R.id.edtActivityRecommendation);
+*/
+
+      //  this.txtTitle = (TextView) rootView.findViewById(R.id.fg_title);
+   //     this.listPopUpView = rootView.findViewById(R.id.listPopupView);
+
+      /*  this.btnSave = (Button) rootView.findViewById(R.id.btnSave);
+        this.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Save and Progress", Toast.LENGTH_SHORT).show();
+                NewIndustyActivity newIndustyActivity = new NewIndustyActivity();
+                newIndustyActivity.mPager.setCurrentItem(2);
+            }
+        });*/
+
+
+
+        this.btnSelectExisting = (Button) rootView.findViewById(R.id.btn_selectExisting);
+        this.btnSelectExisting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadContacts();
+                industryContactStatic = IndustryContactsStatic.industryContactsArrayList;
+                if(industry_list.getAdapter()!=null) {
+                    adapter.notifyDataSetChanged();
+                }
+                adapter= new MyIndustryContactArrayAdapter(getActivity(), industryContactStatic);
+                industry_list.setAdapter(adapter);
+                showListPopup(listPopUpView);
+
+            }
+        });
+
+        return rootView;
+    }
+
+     static ListPopupWindow popup;
+
+    private void showListPopup(View anchor) {
+
+        popup = new ListPopupWindow(getActivity());
+        popup.setAnchorView(anchor);
+        industryContactStatic = IndustryContactsStatic.industryContactsArrayList;
+        final ExistingIndustryListArrayAdapter adapter = new ExistingIndustryListArrayAdapter(getActivity(),industryContactStatic);
+        popup.setAdapter(adapter);
+        popup.isDropDownAlwaysVisible();
+        popup.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        popup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "Item Clicked==" + position, Toast.LENGTH_LONG).show();
+
+                 int industryContactId = adapter.getIndustryContactId(position);
+                 displayContacts(industryContactId);
+            }
+        });
+
+        popup.show();
+    }
+
+    private void displayContacts(int industryContactId) {
+        params = new HashMap();
+
+        params.put("token", token);
+        params.put("userid", userid);
+        params.put("industry_contact_id", industryContactId + "");
+
+        vsr = new VolleyRequest(getActivity(), Request.Method.POST,params,urlHelper.INDUSTRY_CONTACT_LIST,false,CommonDef.REQUEST_INDUSTRY_CONTACT_LIST);
+        vsr.asyncInterface = (AsyncInterface) getActivity();
+        vsr.request();
+    }
+
+
+    private void LoadContacts() {
+        params = new HashMap<>();
+        params.put("token", token);
+        params.put("userid", userid);
+
+        vsr = new VolleyRequest(getActivity(), Request.Method.POST, params, urlHelper.INDUSTRY_CONTACT, false, CommonDef.REQUEST_INDUSTRY_CONTACTS);
+        vsr.asyncInterface = (AsyncInterface) getActivity();
+        vsr.request();
+    }
+
+    public static void LoadIndustryContacts(String result) {
+        JSONObject jObjResult;
+        try {
+            jObjResult = new JSONObject(result);
+            String responseText = jObjResult.getString("responseText");
+            int countOfContacts = jObjResult.getInt("countOfContacts");
+            industryContactsStatic.industryContactsArrayList.clear();
+            if(countOfContacts > 0)
+            {
+                JSONArray jArrayResult = jObjResult.getJSONArray("contactList");
+                for(int i = 0; i <jArrayResult.length() ; i++) {
+                    JSONObject jArrayObject = jArrayResult.getJSONObject(i);
+                    String Industry_Contact_Id = jArrayObject.getString("Industry_Contact_Id");
+                    String Title = jArrayObject.getString("Title");
+                    String Name = jArrayObject.getString("Name");
+
+                    industryContacts = new IndustryContacts();
+                    industryContacts.setIndustry_Contact_Id(Integer.parseInt(Industry_Contact_Id));
+                    industryContacts.setName(Name);
+                    industryContacts.setTitle(Title);
+                    //Add IndustryContact Object in Array
+                    industryContactsStatic.industryContactsArrayList.add(industryContacts);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadIndustryContactList(String result) {
+        JSONObject jObjResult;
+        try {
+            jObjResult = new JSONObject(result);
+            JSONArray contactData = jObjResult.getJSONArray("contactData");
+            for (int i = 0; i < contactData.length(); i++) {
+                try {
+                    JSONObject industryContact = contactData.getJSONObject(i);
+                   /* edtTitle.setText( industryContact.getString("Title"));
+                    edtName.setText(industryContact.getString("Name"));
+                    edtOrganization.setText(industryContact.getString("Organization"));
+                    edtStreetAddress.setText(industryContact.getString("Street_Address"));
+                    edtSuburb.setText(industryContact.getString("Suburb"));
+                    edtPostalCode.setText(industryContact.getString("Postal_Code"));
+                    edtPhone.setText(industryContact.getString("Phone"));
+                    edtEmail.setText(industryContact.getString("Email"));
+                    edtQualification.setText(industryContact.getString("Qualification"));
+                    edtComment.setText(industryContact.getString("Comment"));
+                    edtOppprtunities.setText(industryContact.getString("Opportunities"));
+                    edtActionRequired.setText(industryContact.getString("Action_Required"));
+                    edtActivityRecommendation.setText(industryContact.getString("Activity_Recommendation"));
+
+                    popup.dismiss();*/
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+}

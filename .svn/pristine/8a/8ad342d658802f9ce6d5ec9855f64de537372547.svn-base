@@ -1,0 +1,28 @@
+package com.weareforge.qms.activities;
+
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.weareforge.qms.R;
+
+/**
+ * Created by Admin on 1/7/2016.
+ */
+public class Fragment_Six extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(
+                R.layout.fragment_six, container, false);
+/*
+        MyAdapter.getDefaultColor();
+        NewIndustyActivity.btn6.setBackgroundResource(R.drawable.roundblack_button);
+        NewIndustyActivity.btn6.setTextColor(Color.WHITE);*/
+        return rootView;
+    }
+}

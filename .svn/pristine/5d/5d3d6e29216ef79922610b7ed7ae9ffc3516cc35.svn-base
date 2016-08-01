@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">QMS</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="msg_text_empty">Please enter your value.</string>
+    <string name="msg_loading">Please wait. Loading.</string>
+    <string name="title">An evidence resource for VET Teachers</string>
+    <string name="new_industry_text">New Industry \nEngagement Evidence</string>
+    <string name="existing_industry_text">Existing Industy \nEngagement Evidence</string>
+    <string name="my_industry_contacts">MY INDUSTRY CONTACTS</string>
+    <string name="txt_events_info"><![CDATA[EVENTS, INFO & RESOURCES]]></string>
+    <string name="txt_upload_tps">UPLOAD \nTPS PLAN</string>
+    <string name="txt_my_details">MY \nDETAILS</string>
+
+</resources>

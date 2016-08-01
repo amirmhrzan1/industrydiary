@@ -1,0 +1,359 @@
+package com.weareforge.qms.activities;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.weareforge.qms.Objects.IndustryContacts;
+import com.weareforge.qms.Objects.IndustryContactsStatic;
+import com.weareforge.qms.R;
+import com.weareforge.qms.adapters.MyIndustryContactArrayAdapter;
+import com.weareforge.qms.adapters.MyPageAdapter;
+import com.weareforge.qms.fragments.EvidenceFragment;
+import com.weareforge.qms.fragments.IndustryActivityFragment;
+import com.weareforge.qms.fragments.IndustryContactFragment;
+import com.weareforge.qms.fragments.IndustryEngagementFragment;
+import com.weareforge.qms.fragments.StandardCompetenciesFragment;
+import com.weareforge.qms.helpers.CommonDef;
+import com.weareforge.qms.helpers.CommonMethods;
+import com.weareforge.qms.interfaces.AsyncInterface;
+import com.weareforge.qms.utils.AndroidBug5497Workaround;
+import com.weareforge.qms.utils.FontHelper;
+import com.weareforge.qms.utils.Opener;
+import com.weareforge.qms.utils.SharedPreference;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Admin on 1/7/2016.
+ *
+ */
+
+public class NewIndustyActivity extends FragmentActivity implements View.OnClickListener, AsyncInterface {
+
+    /**
+     * The pager widget, which handles animation and allows swiping horizontally to access previous
+     * and next wizard steps.
+     */
+    public static ViewPager mPager = null;
+
+    private MyIndustryContactArrayAdapter adapter;
+    /**
+     * The pager adapter, which provides the pages to the view pager widget.
+     */
+    private PagerAdapter mPagerAdapter;
+    private LinearLayout PgRelativeLayout;
+
+    private ListView industry_list;
+    private ImageView homeIcon;
+    private Button btnSaveProgess;
+    private TextView txtProgress;
+
+
+    private Opener opener;
+    private FontHelper fontHelper;
+    private SharedPreference sharedPreference;
+
+
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.2F);
+
+    private  IndustryContactsStatic industryContactsStatic = new IndustryContactsStatic();
+    private IndustryContacts industryContacts;
+
+    ArrayList<IndustryContacts> industryContactStatic = new ArrayList<IndustryContacts>();
+    private IndustryEngagementFragment industryEngagementFragment;
+    private IndustryContactFragment industryContactFragment;
+    private IndustryActivityFragment industryActivityFragment;
+    private EvidenceFragment evidenceFragment;
+    private StandardCompetenciesFragment standardCompetenciesFragment;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //Full screen Window
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    //    AndroidBug5497Workaround.assistActivity((Activity) getBaseContext());
+
+
+        setContentView(R.layout.activity_new_industry);
+        CommonMethods.setupUI(findViewById(R.id.relativeLayoutNewIndustry), this);
+
+        //Initialize
+        this.btnSaveProgess = (Button) findViewById(R.id.btnSaveProgress);
+        this.txtProgress = (TextView) findViewById(R.id.txtProgress);
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = (ViewPager) findViewById(R.id.pager);
+        this.homeIcon = (ImageView) findViewById(R.id.homeIcon);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        mPager.setAdapter(new MyPageAdapter(fragmentManager));
+        mPager.setOffscreenPageLimit(5);
+
+        this.industry_list = new ListView(this);
+        this.opener = new Opener(this);
+        this.sharedPreference = new SharedPreference(this);
+
+
+        //Font Helper
+        fontHelper = new FontHelper(this);
+        this.btnSaveProgess.setTypeface(fontHelper.getDefaultFont());
+        this.txtProgress.setTypeface(fontHelper.getDefaultFont());
+
+        //    mPager.addView();
+
+        final ArrayList<Button> numButtons = new ArrayList<Button>();
+        this.PgRelativeLayout = (LinearLayout) findViewById(R.id.PlrelativeLayout);
+
+        for (int i = 0; i < 5; i++) {
+            Button btn_Pg = new Button(this);
+            btn_Pg.setBackground( ContextCompat.getDrawable(this, R.drawable.one_icon));
+            ContextCompat.getDrawable(this, R.drawable.one_icon);
+            final float scale = getResources().getDisplayMetrics().density;
+            LinearLayout.LayoutParams rel_button1 = new LinearLayout.LayoutParams((int) Math.round(30*scale), (int) Math.round(55*scale));
+            rel_button1.setMargins((int) Math.round(11*scale), 0, 0, 0);
+            btn_Pg.setLayoutParams(rel_button1);
+
+            if (i == 0) {
+                btn_Pg.setBackground(ContextCompat.getDrawable(this, R.drawable.selecte_one_icon));
+            } else if(i==1) {
+                btn_Pg.setBackground(ContextCompat.getDrawable(this, R.drawable.two_icon));
+             } else if(i==2) {
+            btn_Pg.setBackground(ContextCompat.getDrawable(this, R.drawable.three_icon));
+            } else if(i==3) {
+             btn_Pg.setBackground(ContextCompat.getDrawable(this, R.drawable.four_icon));
+             }
+            else if(i==4) {
+                btn_Pg.setBackground(ContextCompat.getDrawable(this, R.drawable.five_icon));
+            }
+
+            final int finalI = i;
+            btn_Pg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // onPageSelected(finalI);
+                    mPager.setCurrentItem(finalI);
+                }
+            });
+            this.PgRelativeLayout.addView(btn_Pg);
+            numButtons.add(btn_Pg);
+        }
+
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+
+                System.out.println("My current pos is: "+position);
+
+                Button imageView = numButtons.get(position);
+                for (int i = 0; i < 5; i++) {
+                    Button btn_Pg = numButtons.get(i);
+                    if (i == 0) {
+                        btn_Pg.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.one_icon));
+                        //    btn_Pg.setTextColor(Color.WHITE);
+                    } else if(i==1) {
+                        btn_Pg.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.two_icon));
+                        //  btn_Pg.setTextColor(getResources().getColor(R.color.dark_blue));
+                    } else if(i==2) {
+                        btn_Pg.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.three_icon));
+                        //  btn_Pg.setTextColor(getResources().getColor(R.color.dark_blue));
+                    } else if(i==3) {
+                        btn_Pg.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.four_icon));
+                        //  btn_Pg.setTextColor(getResources().getColor(R.color.dark_blue));
+                    }
+                    else if(i==4) {
+                        btn_Pg.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.five_icon));
+                        //  btn_Pg.setTextColor(getResources().getColor(R.color.dark_blue));
+                    }
+                  /*  else if(i==5) {
+                        btn_Pg.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.six_icon));
+                        //  btn_Pg.setTextColor(getResources().getColor(R.color.dark_blue));
+                    }*/
+                }
+
+                final int finalI = position;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onPageSelected(finalI);
+                        mPager.setCurrentItem(finalI);
+                    }
+                });
+
+
+                if ( position ==0) {
+                        imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.selecte_one_icon));
+                    //    imageView.setTextColor(Color.WHITE);
+                    } else if(position ==1) {
+                        imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.select_two_icon));
+                    }
+
+                    else if(position ==2) {
+                        imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.select_three_icon));
+                    }
+
+                    else if(position ==3) {
+                        imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.selecte_four_icon));
+                    }
+
+                    else if(position ==4) {
+                        imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.selecte_five_icon));
+                    }
+
+                   /* else if(position ==5) {
+                        imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.selecte_six_icon));
+                    }*/
+            }
+
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        this.homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opener.Home();
+                sharedPreference.setKeyValues("flag",0);
+                sharedPreference.setKeyValues("Engagement_Evidence_Id","");
+                sharedPreference.setKeyValues("Industry_Engagement_Id","");
+                sharedPreference.setKeyValues("Industry_Activity_Feedback_Id","");
+                sharedPreference.setKeyValues("Evidence_Id","");
+               // sharedPreference.setKeyValues("Industry_Engagement_Id","");
+
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    public void onClick(View v) {
+    }
+
+
+    @Override
+    public void processFinish(String result, int requestCode) {
+        if(industryEngagementFragment==null)
+        {
+
+            industryEngagementFragment = (IndustryEngagementFragment) mPager.getAdapter().instantiateItem(mPager, 0);
+        }
+        if(industryContactFragment==null)
+        {
+
+            industryContactFragment = (IndustryContactFragment) mPager.getAdapter().instantiateItem(mPager,1);
+        }
+        if(industryActivityFragment==null)
+        {
+
+            industryActivityFragment = (IndustryActivityFragment) mPager.getAdapter().instantiateItem(mPager,2);
+        }
+        if(evidenceFragment==null)
+        {
+
+            evidenceFragment = (EvidenceFragment) mPager.getAdapter().instantiateItem(mPager,3);
+        }
+        if(standardCompetenciesFragment==null)
+        {
+
+            standardCompetenciesFragment = (StandardCompetenciesFragment) mPager.getAdapter().instantiateItem(mPager,4);
+        }
+
+        switch (requestCode) {
+            //Industry Engagement Fragment
+            case CommonDef.REQUEST_INDUSTRY_ENGAGEMENT_ADD:
+                industryEngagementFragment.industryEngagementAddEdit(result);
+                break;
+            case CommonDef.REQUEST_LIST_INDUSTRY_ENGAGEMENT:
+                industryEngagementFragment.listIndustryengagement(result);
+                break;
+            case CommonDef.REQUEST_ENGAGEMENT_EVIDENCE:
+                industryEngagementFragment.requestEngagementEvidence(result);
+                break;
+
+            case CommonDef.REQUEST_LIST_ACTIVITY:
+                industryEngagementFragment.listActivity(result);
+                break;
+
+            case CommonDef.REQUEST_LIST_PURPOSE:
+               industryEngagementFragment.listPurpose(result);
+                break;
+
+            case CommonDef.REQUEST_LIST_FINDOUT:
+                industryEngagementFragment.listFindOut(result);
+            //Industry Contact Fragment
+            case CommonDef.REQUEST_INDUSTRY_CONTACTS:
+                industryContactFragment.LoadIndustryContacts(result);
+                break;
+            case CommonDef.REQUEST_INDUSTRY_CONTACT_LIST:
+                industryContactFragment.loadIndustryContactList(result);
+                break;
+            case CommonDef.REQUEST_ENGAGEMENT_CONTACT_LIST:
+                industryContactFragment.loadEngagementConactList(result);
+                break;
+            case CommonDef.REQUEST_INDUSTRY_CONTACT_ADD:
+                industryContactFragment.requestIndustryContact(result);
+                break;
+            case CommonDef.REQUEST_ADD_EXISTING_CONTACTS:
+                industryContactFragment.addExistingContacts(result);
+                break;
+
+            //Industry Activity Feedback
+            case CommonDef.REQUEST_INDUSTRY_ACTIVITY_FEEDBACK_UPSERT:
+                industryActivityFragment.industryActivityUpsert(result);
+                break;
+
+            case CommonDef.REQUEST_INDUSTRY_ACTIVITY_FEEDBACK_LIST:
+                industryActivityFragment.industryActivityList(result);
+                break;
+
+            //Evidence Fragement
+            case CommonDef.REQUEST_EVIDENCE_UPSERT:
+                evidenceFragment.evidenceUpsert(result);
+                break;
+
+            case CommonDef.REQUEST_EVIDENCE_LIST:
+                evidenceFragment.loadEvidenceList(result);
+                break;
+
+            //Standard Fragment
+            case CommonDef.REQUEST_LIST_ASAQ:
+                standardCompetenciesFragment.listASAQ(result);
+                break;
+
+
+
+
+        }
+
+    }
+}
+

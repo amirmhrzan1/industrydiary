@@ -1,0 +1,169 @@
+package com.weareforge.qms.utils;
+
+import android.app.Activity;
+import android.content.Intent;
+
+import com.weareforge.qms.AWS.DownloadActivity;
+import com.weareforge.qms.AWS.UploadActivity;
+import com.weareforge.qms.activities.AddIndustryContactActivity;
+import com.weareforge.qms.activities.EditIndustryContactActivity;
+import com.weareforge.qms.activities.EventsAndInfoActivity;
+import com.weareforge.qms.activities.ExistingIndustryActivity;
+import com.weareforge.qms.activities.HomeActivity;
+import com.weareforge.qms.activities.LoginActivity;
+import com.weareforge.qms.activities.MoreInfoASAQ;
+import com.weareforge.qms.activities.MyDetailsActivity;
+import com.weareforge.qms.activities.MyIndustryContactsActivity;
+import com.weareforge.qms.activities.NewIndustyActivity;
+import com.weareforge.qms.activities.PrivacyPolicy;
+import com.weareforge.qms.activities.SettingActivity;
+import com.weareforge.qms.activities.TermsAndConditions;
+
+/**
+ * Created by Prajeet on 11/17/2015.
+ */
+public class Opener {
+    static Activity activity;
+    static Intent intent;
+    SharedPreference pref;
+
+    public Opener(Activity activity) {
+        this.activity = activity;
+    }
+
+        public void Login(){
+            intent = new Intent(activity, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(intent);
+         //   activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//        Toast.makeText(activity, "Inside Sigin In", Toast.LENGTH_SHORT).show();
+        }
+
+    public void Home()
+    {
+        intent = new Intent(activity, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
+
+    }
+
+    public void ExistingIndustry() {
+
+        intent = new Intent(activity, ExistingIndustryActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+//        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    public void MyIndustryContacts() {
+        intent = new Intent(activity, MyIndustryContactsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void exit() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(a);
+    }
+
+    public void EditIndustryContact() {
+        intent = new Intent(activity, EditIndustryContactActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void AddIndustryContact() {
+        intent = new Intent(activity, AddIndustryContactActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void MyDetails() {
+        intent = new Intent(activity, MyDetailsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void NewIndustry() {
+        intent = new Intent(activity, NewIndustyActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void UploadTAS() {
+        intent = new Intent(activity, UploadActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+
+    public void DownloadFromAWS() {
+        intent = new Intent(activity,DownloadActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void Setting() {
+        intent = new Intent(activity,SettingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void EventsAndInfo() {
+        intent = new Intent(activity,EventsAndInfoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void MoreInfoASAQ() {
+        intent = new Intent(activity,MoreInfoASAQ.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void TermsAndConditions() {
+        intent = new Intent(activity,TermsAndConditions.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+    public void AboutApp() {
+        intent = new Intent(activity,PrivacyPolicy.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
+}

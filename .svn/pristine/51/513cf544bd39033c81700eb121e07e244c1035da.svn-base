@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">QMS</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="msg_text_empty">Please enter your value.</string>
+    <string name="msg_loading">Please wait. Loading.</string>
+
+</resources>

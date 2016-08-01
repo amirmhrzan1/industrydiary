@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
+
+    defaultConfig {
+        applicationId "com.weareforge.qms"
+        minSdkVersion 16
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:support-v4:23.+'
+    compile files('libs/volley.jar')
+    compile 'com.squareup.picasso:picasso:2.4.0'
+    compile 'jp.wasabeef:picasso-transformations:1.0.5'
+    compile('org.apache.httpcomponents:httpmime:4.3') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+    compile('org.apache.httpcomponents:httpcore:4.3') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+        compile 'com.google.code.gson:gson:2.3'
+        compile 'com.github.rahatarmanahmed:circularprogressview:2.4.0'
+        compile 'com.android.support:design:23.1.1'
+        compile 'eu.inmite.android.lib:android-validation-komensky:0.9.4@aar'
+        compile 'com.j256.ormlite:ormlite-core:4.48'
+        compile 'com.j256.ormlite:ormlite-android:4.48'
+
+        //Amazon Web Services gradle
+        compile 'com.amazonaws:aws-android-sdk-core:2.+'
+        compile 'com.amazonaws:aws-android-sdk-cognito:2.+'
+        compile 'com.amazonaws:aws-android-sdk-s3:2.+'
+        compile 'com.amazonaws:aws-android-sdk-ddb:2.+'
+
+    }
+}

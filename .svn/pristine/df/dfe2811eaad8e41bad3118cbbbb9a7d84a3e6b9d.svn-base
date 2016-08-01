@@ -1,0 +1,41 @@
+package com.weareforge.qms.helpers;
+
+/**
+ * Created by Robz Stha on 12/26/2014.
+ */
+public final class CommonDef {
+    public static final int REQUEST_LOGIN = 1;
+
+//    public static final String DIRECTORY = Environment.getExternalStorageDirectory()+"/"+"SMP/";
+
+
+    public static String TAG = "Rabin is testing ";
+    public final static int SOCKET_TIME_OUT = 8000;
+
+
+    public static class Dirs{
+        public static String SIGNATURE = "signature";
+        public static String FONTS = "fonts";
+    }
+
+
+    public static class SharedPrefKeys {
+
+        public static String IS_LOGGED_IN = "isLoggedIn";
+        public static String USER_ID = "userId";
+        public static String FIRST_NAME = "firstName";
+        public static String LAST_NAME = "lastName";
+        public static String AIRLINES_NAME = "airlines_name";
+        public static String USER_EMAIL = "userEmail";  // this is the original username
+        public static String CONTACT_NO = "contactNo";
+        public static String ADDRESS = "address";
+        public static String HASH_CODE = "hashCode";
+        public static String DEVICE_ID = "deviceId";
+
+        public static String AUTH_KEY = "auth_key";
+    }
+
+
+
+
+}

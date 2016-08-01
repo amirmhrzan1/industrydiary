@@ -1,0 +1,90 @@
+package com.weareforge.qms.activities;
+
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.weareforge.qms.R;
+import com.weareforge.qms.utils.FontHelper;
+
+import org.w3c.dom.Text;
+
+/**
+ * Created by Admin on 12/23/2015.
+ */
+public class ExistingIndustryArrayAdapter extends BaseAdapter {
+
+    private Context cntx;
+    private LayoutInflater myinflater;
+    private String[] datas;
+
+    private TextView txtDate;
+    private TextView txtRefTitle;
+    private TextView txtAccreditation;
+    private TextView txtAccNumber;
+    private TextView txtHourse;
+    private TextView txtHourseNumber;
+    private TextView txtStatus;
+
+    private FontHelper fontHelper;
+
+    public ExistingIndustryArrayAdapter(Context context , String[] data)
+    {
+        this.cntx = context;
+        this.datas = data;
+        myinflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @Override
+    public int getCount() {
+        return datas.length;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return datas[position];
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = myinflater.inflate(R.layout.existing_industry_list, parent, false);
+            }
+        txtStatus = (TextView) convertView.findViewById(R.id.txt_status);
+        this.txtDate = (TextView) convertView.findViewById(R.id.txt_date);
+        this.txtRefTitle = (TextView) convertView.findViewById(R.id.txt_reference_title);
+        this.txtAccreditation = (TextView) convertView.findViewById(R.id.txt_accreditation);
+        this.txtAccNumber = (TextView) convertView.findViewById(R.id.txt_accreditationNumber);
+        this.txtHourse = (TextView) convertView.findViewById(R.id.txt_hourse);
+        this.txtHourseNumber = (TextView) convertView.findViewById(R.id.txt_hourseNumber);
+
+        convertView.setBackgroundColor(Color.parseColor(position % 2 != 0 ? "#f6f5f4" : "#ffffff"));
+        this.txtStatus.setText((position % 2 != 0 ? "SUBMITTED" : "IN PROGRESS"));
+        this.txtStatus.setTextColor(Color.parseColor(position % 2 != 0 ? "#46c4d6" : "#000000"));
+
+
+        //Fonts
+        fontHelper = new FontHelper((Activity) this.cntx);
+        this.txtDate.setTypeface(fontHelper.getDefaultFont());
+        this.txtRefTitle.setTypeface(fontHelper.getDefaultFont());
+        this.txtHourseNumber.setTypeface(fontHelper.getDefaultFont());
+        this.txtAccNumber.setTypeface(fontHelper.getDefaultFont());
+        this.txtAccreditation.setTypeface(fontHelper.getDefaultFont());
+        this.txtHourse.setTypeface(fontHelper.getDefaultFont());
+        txtStatus.setTypeface(fontHelper.getDefaultFont());
+
+        return convertView;
+    }
+}

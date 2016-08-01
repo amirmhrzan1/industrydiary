@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CCFF00"
+   >
+
+    <ImageButton
+        android:id="@+id/imgBtnChooseFile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/btnUploadTPS"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/ic_add_black_24dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnUploadTPS"
+        android:padding="40dp"
+        android:background="@color/button"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Download TAS"
+        />
+</RelativeLayout>
